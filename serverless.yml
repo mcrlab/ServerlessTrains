@@ -1,0 +1,27 @@
+service: trains
+
+provider:
+  name: aws
+  runtime: python3.6
+  environment:
+    DARWIN_TOKEN: ${env:DARWIN_TOKEN}
+    WSDL: ${env:WSDL}
+
+functions:
+  departures:
+    handler: handler.endpoint
+    events:
+      - http:
+          path: departures/{from}/{to}
+          method: get
+          request:
+            parameters:
+               paths:
+                 from: true
+                 to: true
+plugins:
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    dockerizePip: non-linux
