@@ -43,10 +43,10 @@ jobs:
           key: dependencies-node-{{ checksum "package.json" }}
 
       # run tests
-      - run:
-          name: Run tests with code coverage
-          command: |
-            nosetests --with-coverage
+#      - run:
+#          name: Run tests with code coverage
+#          command: |
+#            nosetests --with-coverage
 
       # deploy app
       - run:
