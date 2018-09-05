@@ -17,11 +17,11 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - dependencies-node
 
-#      - run:
-#          name: Install python test dependencies
-#          command: |
-#            sudo pip install nose
-#            sudo pip install coverage
+     - run:
+         name: Install python test dependencies
+         command: |
+           sudo pip install nose
+           sudo pip install coverage
 
       # this is slow. build a custom docker image and use that
       - run:
@@ -43,10 +43,10 @@ jobs:
           key: dependencies-node-{{ checksum "package.json" }}
 
       # run tests
-#      - run:
-#          name: Run tests with code coverage
-#          command: |
-#            nosetests --with-coverage
+     - run:
+         name: Run tests with code coverage
+         command: |
+           nosetests --with-coverage
 
       # deploy app
       - run:
