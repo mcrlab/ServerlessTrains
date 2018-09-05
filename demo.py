@@ -1,7 +1,5 @@
 from lib.trainapp import TrainApp
 app = TrainApp(False, False)
-nmc = app.fetchDeparturesForStation("NMC")
-nmn = app.fetchDeparturesForStation("NMN")
-data = nmc + nmn
+data = app.fetchDeparturesForStation("NMC", "MAN")
 sorted(data, key=lambda k:k['std'])
 print(data)

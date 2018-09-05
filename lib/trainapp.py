@@ -7,7 +7,7 @@ class TrainApp:
         self.event = event
         self.context = context
 
-    def loadServices(self, fromCRS, toCRS="MAN"):
+    def loadServices(self, fromCRS, toCRS):
         wsdl = os.environ['WSDL']
         token = os.environ['DARWIN_TOKEN']
 
@@ -19,11 +19,11 @@ class TrainApp:
         except(zeep.exceptions.Fault):
             print("Exception")
 
-    def fetchDeparturesForStation(self, fromCRS):
+    def fetchDeparturesForStation(self, fromCRS, toCRS):
         departures = []
         trainServiceFactory = TrainServiceFactory()
 
-        response = self.loadServices(fromCRS, "MAN")
+        response = self.loadServices(fromCRS, toCRS)
         location = {}
         location['name'] = response.locationName.replace("New Mills ", "")
         location['crs'] = response.crs

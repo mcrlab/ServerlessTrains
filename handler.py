@@ -4,9 +4,7 @@ import json
 def endpoint(event, context):
     try:
         app = TrainApp(event, context)
-        nmc = app.fetchDeparturesForStation("NMC")
-        nmn = app.fetchDeparturesForStation("NMN")
-        trains = nmc + nmn
+        trains = app.fetchDeparturesForStation("NMC", "MAN");
         sorted_trains = sorted(trains, key=lambda k:k['std'])
         data = {
             "departures": sorted_trains
