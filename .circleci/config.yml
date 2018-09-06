@@ -4,7 +4,7 @@
 #
 version: 2
 jobs:
-  build:
+  build_and_test:
     working_directory: ~/python-ci
 
     docker:
@@ -27,6 +27,22 @@ jobs:
             sudo pip install nose
             sudo pip install coverage
 
+      - run:
+          name: Run tests with code coverage
+          command: |
+            nosetests --with-coverage
+
+  deploy:
+    working_directory: ~/python-ci
+
+    docker:
+      # specify the version you desire here
+      - image: circleci/python:3.6.1
+
+    steps:
+      - checkout
+        # run tests
+      # deploy app
       # this is slow. build a custom docker image and use that
       - run:
           name: Install node and npm
@@ -46,32 +62,6 @@ jobs:
             - node_modules
           key: dependencies-node-{{ checksum "package.json" }}
 
-  test:
-    working_directory: ~/python-ci
-
-    docker:
-      # specify the version you desire here
-      - image: circleci/python:3.6.1
-
-    steps:
-      - checkout
-      # run tests
-      - run:
-          name: Run tests with code coverage
-          command: |
-            nosetests --with-coverage
-
-  deploy:
-    working_directory: ~/python-ci
-
-    docker:
-      # specify the version you desire here
-      - image: circleci/python:3.6.1
-
-    steps:
-      - checkout
-        # run tests
-      # deploy app
       - run:
           name: Deploy application
           command: sls deploy -v
@@ -80,7 +70,4 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - build
-      - test:
-          requires:
-            - build
+      - build_and_test
