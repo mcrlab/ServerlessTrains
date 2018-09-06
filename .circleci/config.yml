@@ -56,3 +56,9 @@ jobs:
       - run:
           name: Deploy application
           command: sls deploy -v
+          
+workflows:
+  version: 2
+  build_and_deplpy:
+    jobs:
+      - build
