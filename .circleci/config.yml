@@ -46,19 +46,35 @@ jobs:
             - node_modules
           key: dependencies-node-{{ checksum "package.json" }}
 
-      # run tests
-      - run:
-          name: Run tests with code coverage
-          command: |
-            nosetests --with-coverage
+  test:
+    working_directory: ~/python-ci
 
+    docker:
+      # specify the version you desire here
+      - image: circleci/python:3.6.1
+        # run tests
+        - run:
+            name: Run tests with code coverage
+            command: |
+              nosetests --with-coverage
+
+  deploy:
+    working_directory: ~/python-ci
+
+    docker:
+      # specify the version you desire here
+      - image: circleci/python:3.6.1
+        # run tests
       # deploy app
       - run:
           name: Deploy application
           command: sls deploy -v
-          
+
 workflows:
   version: 2
-  build_and_deplpy:
+  build_and_test:
     jobs:
       - build
+      - test:
+          requires:
+            - build
