@@ -14,6 +14,7 @@ functions:
       - http:
           path: departures/{from}/{to}
           method: get
+          cors: true
           request:
             parameters:
                paths:
