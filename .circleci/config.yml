@@ -14,13 +14,6 @@ jobs:
     steps:
       - checkout
 
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-            - dependencies-node-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - dependencies-node
-
       - run:
           name: Install python test dependencies
           command: |
@@ -41,6 +34,12 @@ jobs:
 
     steps:
       - checkout
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - dependencies-node-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - dependencies-node
         # run tests
       # deploy app
       # this is slow. build a custom docker image and use that
@@ -71,3 +70,4 @@ workflows:
   build_and_test:
     jobs:
       - build_and_test
+      - deploy
