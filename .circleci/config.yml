@@ -52,11 +52,14 @@ jobs:
     docker:
       # specify the version you desire here
       - image: circleci/python:3.6.1
-        # run tests
-        - run:
-            name: Run tests with code coverage
-            command: |
-              nosetests --with-coverage
+
+    steps:
+      - checkout
+      # run tests
+      - run:
+          name: Run tests with code coverage
+          command: |
+            nosetests --with-coverage
 
   deploy:
     working_directory: ~/python-ci
@@ -64,6 +67,9 @@ jobs:
     docker:
       # specify the version you desire here
       - image: circleci/python:3.6.1
+
+    steps:
+      - checkout
         # run tests
       # deploy app
       - run:
