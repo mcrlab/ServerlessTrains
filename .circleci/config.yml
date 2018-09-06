@@ -25,7 +25,7 @@ jobs:
           command: |
             nosetests --with-coverage
 
-  deploy:
+  staging:
     working_directory: ~/python-ci
 
     docker:
@@ -70,4 +70,6 @@ workflows:
   build_and_test:
     jobs:
       - build_and_test
-      - deploy
+      - staging:
+          requires:
+            - build_and_test
