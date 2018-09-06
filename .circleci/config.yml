@@ -65,6 +65,46 @@ jobs:
           name: Deploy application
           command: sls deploy -v
 
+  production:
+    working_directory: ~/python-ci
+
+    docker:
+      # specify the version you desire here
+      - image: circleci/python:3.6.1
+
+    steps:
+      - checkout
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - dependencies-node-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - dependencies-node
+        # run tests
+      # deploy app
+      # this is slow. build a custom docker image and use that
+      - run:
+          name: Install node and npm
+          command: |
+            curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+            sudo apt-get install -y nodejs
+            node --version && npm -v
+
+      - run:
+          name: Install Serverless CLI and dependencies
+          command: |
+            sudo npm i -g serverless
+            npm install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: dependencies-node-{{ checksum "package.json" }}
+
+      - run:
+          name: Deploy application
+          command: sls deploy -v -s production
+
 workflows:
   version: 2
   build_and_test:
@@ -73,3 +113,10 @@ workflows:
       - staging:
           requires:
             - build_and_test
+      - request_deployment:
+          type: approval
+          requires:
+            - staging
+      - production:
+          requires:
+            - request_deployment
