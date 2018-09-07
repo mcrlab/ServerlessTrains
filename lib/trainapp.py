@@ -3,10 +3,6 @@ from lib.trainfactory import TrainServiceFactory
 import os
 
 class TrainApp:
-    def __init__(self, event, context):
-        self.event = event
-        self.context = context
-
     def loadServices(self, fromCRS, toCRS):
         wsdl = os.environ['WSDL']
         token = os.environ['DARWIN_TOKEN']
