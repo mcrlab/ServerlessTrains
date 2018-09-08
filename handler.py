@@ -38,7 +38,7 @@ def endpoint(event, context):
               'Access-Control-Allow-Origin': '*',
               'Access-Control-Allow-Credentials': True,
             },
-            "body": e
+            "body": str(e)
         }
     finally:
         return response
