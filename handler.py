@@ -1,11 +1,21 @@
 from lib.trainapp import TrainApp
+from lib.stationlist import StationList
+
 import json
 
 def endpoint(event, context):
     response = {}
     try:
-        fromCRS = event['pathParameters']['from']
-        toCRS = event['pathParameters']['to']
+        stationList = StationList()
+
+        fromCRS = event['pathParameters']['from'].upper()
+        if stationList.validateCRS(fromCRS) is not False:
+            raise Exception("CRS Code is invalid")
+
+        toCRS = event['pathParameters']['to'].upper()
+        if stationList.validateCRS(toCRS) is not False:
+            raise Exception("CRS Code is invalid")
+
 
         trains = TrainApp().fetchDeparturesForStation(fromCRS, toCRS)
         sorted_trains = sorted(trains, key=lambda k:k['std'])
