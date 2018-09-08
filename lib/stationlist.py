@@ -3,10 +3,11 @@ import json
 
 class StationList:
     def __init__(self):
-        data_string = open(os.path.dirname(os.path.abspath(__file__))+'/stations.json').read()
+        data_string = open(os.environ['LAMBDA_TASK_ROOT']+'/lib/stations.json').read()
         data = json.loads(data_string)
-        self.locations = data['locations']
+        self.locations = data;
 
     def validateCRS(self, searchCRS):
         crs_list = [l['crs'] for l in self.locations]
+        print("searching for " + searchCRS)
         return searchCRS in crs_list
