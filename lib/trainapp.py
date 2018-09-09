@@ -23,6 +23,7 @@ class TrainApp:
         location = {}
         location['name'] = response.locationName.replace("New Mills ", "")
         location['crs'] = response.crs
+        print(response)
 
         if response.trainServices is not None:
             for serviceData in response.trainServices.service:

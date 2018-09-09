@@ -23,4 +23,8 @@ class TrainServiceFactory():
         data['std'] = serviceData.std
         data['etd'] = calculate_etd(serviceData.etd, serviceData.std)
         data['isCancelled'] = serviceData.isCancelled
+        if serviceData.platform is not None:
+            data['platform'] = serviceData.platform
+        else:
+            data['platform'] = ""
         return data
