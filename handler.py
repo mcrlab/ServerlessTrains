@@ -9,11 +9,11 @@ def endpoint(event, context):
         stationList = StationList()
 
         fromCRS = event['pathParameters']['from'].upper()
-        if stationList.validateCRS(fromCRS) is not False:
+        if stationList.validateCRS(fromCRS) is not True:
             raise Exception("CRS Code is invalid")
 
         toCRS = event['pathParameters']['to'].upper()
-        if stationList.validateCRS(toCRS) is not False:
+        if stationList.validateCRS(toCRS) is not True:
             raise Exception("CRS Code is invalid")
 
 
