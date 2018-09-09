@@ -10,5 +10,5 @@ class StationList:
 
     def validateCRS(self, searchCRS):
         crs_list = [l['crs'] for l in self.locations]
-        print("searching for " + searchCRS)
+        print(searchCRS)
         return searchCRS in crs_list

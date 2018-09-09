@@ -32,6 +32,7 @@ def endpoint(event, context):
             "body": json.dumps(data)
         }
     except Exception as e:
+        print(e)
         response = {
             "statusCode": 200,
             "headers": {
