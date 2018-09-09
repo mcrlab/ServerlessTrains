@@ -22,10 +22,17 @@ functions:
                  to: true
 plugins:
   - serverless-python-requirements
+  - serverless-domain-manager
 
 custom:
   pythonRequirements:
     dockerizePip: non-linux
+
+  customDomain:
+    domainName: trains.mcrlab.co.uk
+    basePath: ''
+    stage: ${self:provider.stage}
+    createRoute53Record: true
 
 package:
   exclude:
