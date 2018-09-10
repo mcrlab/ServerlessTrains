@@ -11,3 +11,6 @@ class StationList:
         crs_list = [d['crs'] for d in self.locations]
         print(searchCRS in crs_list)
         return searchCRS in crs_list
+
+    def locations(self):
+        return self.locations

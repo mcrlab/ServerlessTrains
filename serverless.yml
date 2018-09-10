@@ -8,6 +8,13 @@ provider:
     WSDL: ${env:WSDL}
 
 functions:
+  stations:
+    hander: handler.stations
+    events:
+      - http:
+        path: stations
+        cors: true
+        
   departures:
     handler: handler.endpoint
     events:

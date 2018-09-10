@@ -3,6 +3,22 @@ from lib.stationlist import StationList
 
 import json
 
+def stations(event, context):
+    response = {}
+    stationList = StationList()
+
+    data = statonList.locations()
+
+    response = {
+        "statusCode": 200,
+        "headers": {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Credentials': True,
+        },
+        "body": json.dumps(data)
+    }
+    return response
+
 def endpoint(event, context):
     response = {}
     try:
