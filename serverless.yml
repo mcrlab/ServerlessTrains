@@ -9,12 +9,13 @@ provider:
 
 functions:
   stations:
-    hander: handler.stations
+    handler: handler.stations
     events:
       - http:
-        path: stations
-        cors: true
-        
+          path: stations
+          method: get
+          cors: true
+
   departures:
     handler: handler.endpoint
     events:

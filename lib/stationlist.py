@@ -12,5 +12,5 @@ class StationList:
         print(searchCRS in crs_list)
         return searchCRS in crs_list
 
-    def locations(self):
+    def stations(self):
         return self.locations

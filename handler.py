@@ -7,7 +7,7 @@ def stations(event, context):
     response = {}
     stationList = StationList()
 
-    data = statonList.locations()
+    data = stationList.stations()
 
     response = {
         "statusCode": 200,
