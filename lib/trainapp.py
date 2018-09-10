@@ -9,7 +9,7 @@ class TrainApp:
 
         try:
             client = zeep.Client(wsdl=wsdl)
-            response = client.service.GetDepartureBoard(numRows=2, crs=fromCRS, filterCrs=toCRS, timeOffset=0, timeWindow=120, _soapheaders={"AccessToken":token})
+            response = client.service.GetDepartureBoard(numRows=4, crs=fromCRS, filterCrs=toCRS, timeOffset=0, timeWindow=120, _soapheaders={"AccessToken":token})
             return response
 
         except(zeep.exceptions.Fault):
@@ -21,7 +21,7 @@ class TrainApp:
 
         response = self.loadServices(fromCRS, toCRS)
         location = {}
-        location['name'] = response.locationName.replace("New Mills ", "")
+        location['name'] = response.locationName
         location['crs'] = response.crs
         print(response)
 
