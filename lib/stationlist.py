@@ -9,8 +9,11 @@ class StationList:
 
     def validateCRS(self, searchCRS):
         crs_list = [d['crs'] for d in self.locations]
-        print(searchCRS in crs_list)
         return searchCRS in crs_list
+
+    def getStationName(self, searchCRS):
+        station = next(item for item in self.locations if item["crs"] == searchCRS)
+        return station['name']
 
     def stations(self):
         return self.locations
