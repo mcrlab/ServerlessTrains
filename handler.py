@@ -3,9 +3,8 @@ from lib.stationlist import StationList
 import json
 
 def stations(event, context):
-    response = {}
-    stationList = StationList()
 
+    stationList = StationList()
     data = stationList.stations()
 
     response = {
@@ -19,7 +18,9 @@ def stations(event, context):
     return response
 
 def endpoint(event, context):
-    response = {}
+    statusCode = 200
+    body = ""
+
     try:
         stationList = StationList()
 
@@ -36,24 +37,19 @@ def endpoint(event, context):
         data = {
             "departures": trains
         }
+        body = json.dumps(data)
 
-        response = {
-            "statusCode": 200,
-            "headers": {
-              'Access-Control-Allow-Origin': '*',
-              'Access-Control-Allow-Credentials': True,
-            },
-            "body": json.dumps(data)
-        }
     except Exception as e:
-       print(e)
+       statusCode = 500
+       body = str(e)
+
+    finally:
        response = {
-           "statusCode": 200,
+           "statusCode": statusCode,
            "headers": {
              'Access-Control-Allow-Origin': '*',
              'Access-Control-Allow-Credentials': True,
            },
-           "body": str(e)
+           "body": body
        }
-    finally:
        return response
