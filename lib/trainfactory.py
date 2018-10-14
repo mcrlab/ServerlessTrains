@@ -7,12 +7,6 @@ def calculate_time(estimated, scheduled):
     else:
         return estimated
 
-def format_location(location):
-    data = {}
-    data['name'] = location.locationName
-    data['crs'] = location.crs
-    return data
-
 def get_arrival_time(serviceData, destinationCRS):
     scheduled = ""
     estimated = ""
