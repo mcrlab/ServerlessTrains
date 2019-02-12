@@ -9,7 +9,7 @@ jobs:
 
     docker:
       # specify the version you desire here
-      - image: circleci/python:3.6.1
+      - image: circleci/python:3.6.2-stretch-browsers
 
     steps:
       - checkout
@@ -30,7 +30,7 @@ jobs:
 
     docker:
       # specify the version you desire here
-      - image: circleci/python:3.6.1
+      - image: circleci/python:3.6.2-stretch-browsers
 
     steps:
       - checkout
