@@ -16,7 +16,7 @@ def stations(event, context):
         "body": json.dumps(data)
     }
     return response
-    
+
 
 def next(event, context):
     response = {}
@@ -59,7 +59,7 @@ def next(event, context):
 
 
 def iot(event, context):
-
+    response = {}
     try:
         stationList = StationList()
 
@@ -72,23 +72,30 @@ def iot(event, context):
             raise Exception("CRS Code is invalid")
 
         trains = TrainApp().fetchDeparturesForStation(fromCRS, toCRS)
+        if len(trains) > 0:
+            etd = trains[0]['origin']['etd']
+            hour, minute = etd.split(":")
+            time = int(hour) * 60 + int(minute)
+        else:
+            time = ""
 
-        data = {
-            "departures": trains
+        response = {
+            "statusCode": 200,
+            "headers": {
+              'Access-Control-Allow-Origin': '*',
+              'Access-Control-Allow-Credentials': True,
+            },
+            "body": time
         }
-        body = json.dumps(data)
 
     except Exception as e:
-       statusCode = 500
-       body = str(e)
-
-    finally:
-        response = {
-           "statusCode": 200,
+       response = {
+           "statusCode": 500,
            "headers": {
              'Access-Control-Allow-Origin': '*',
              'Access-Control-Allow-Credentials': True,
            },
-           "body": body
+           "body": str(e)
        }
+    finally:
        return response
