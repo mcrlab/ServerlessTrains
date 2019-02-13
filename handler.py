@@ -1,7 +1,10 @@
+import zeep
 from lib.trainapp import TrainApp
 from lib.stationlist import StationList
 import json
+import os
 
+WSDL = os.environ['WSDL']
 
 def stations(event, context):
 
@@ -32,18 +35,16 @@ def next(event, context):
         if stationList.validateCRS(toCRS) is not True:
             raise Exception("CRS Code is invalid")
 
-        trains = TrainApp().fetchDeparturesForStation(fromCRS, toCRS)
+        client = zeep.Client(wsdl=WSDL)
+        departures = TrainApp(client).fetchDeparturesForStation(fromCRS, toCRS)
 
-        data = {
-            "departures": trains
-        }
         response = {
             "statusCode": 200,
             "headers": {
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Credentials': True,
             },
-            "body": json.dumps(data)
+            "body": json.dumps(departures)
         }
     except Exception as e:
         print(e)
@@ -71,8 +72,8 @@ def iot(event, context):
         toCRS = event['pathParameters']['to'].upper()
         if stationList.validateCRS(toCRS) is not True:
             raise Exception("CRS Code is invalid")
-
-        trains = TrainApp().fetchDeparturesForStation(fromCRS, toCRS)
+        client = zeep.Client(wsdl=WSDL)
+        trains = TrainApp(client).fetchDeparturesForStation(fromCRS, toCRS)
         if len(trains) > 0:
             etd = trains[0]['origin']['etd']
             hour, minute = etd.split(":")

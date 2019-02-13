@@ -7,18 +7,20 @@ def calculate_time(estimated, scheduled):
     else:
         return estimated
 
-def get_arrival_time(serviceData, destinationCRS):
-    scheduled = ""
-    estimated = ""
-    try:
-        callingPoints = serviceData['subsequentCallingPoints']['callingPointList'][0]['callingPoint'];
-        destination = next(item for item in callingPoints if item["crs"] == destinationCRS)
-        scheduled = destination['st']
-        estimated = calculate_time(scheduled, destination['et'])
-    except Exception as e:
-        print(e)
-    finally:
-       return scheduled, estimated
+def get_calling_points(serviceData):
+    return serviceData['subsequentCallingPoints']['callingPointList'][0]['callingPoint'];
+
+def get_destination(callingPoints, destinationCRS):
+    return next(item for item in callingPoints if item["crs"] == destinationCRS)
+
+def get_arrival_time(service_data, destination_CRS):
+
+    calling_points = get_calling_points(service_data);
+    destination = get_destination(calling_points, destination_CRS)
+    scheduled_time = destination['st']
+    estimated_time = calculate_time(scheduled_time, destination['et'])
+
+    return scheduled_time, estimated_time
 
 class TrainServiceFactory():
     def __init__(self, fromCRS, toCRS, services):
