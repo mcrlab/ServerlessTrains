@@ -1,9 +1,9 @@
-import zeep
 from lib.trainapp import TrainApp
 from lib.stationlist import StationList
+from lib.darwinservice import DarwinService
 from lib.utilities import extract_CRS
 from lib.utilities import build_response_object
-from lib.darwinservice import DarwinService
+from lib.utilities import time_to_integer
 
 import json
 import os
@@ -28,8 +28,12 @@ def next(event, context):
         fromCRS, toCRS = extract_CRS(event, station_list)
 
         service = DarwinService(WSDL, token)
-        departures = TrainApp(service).fetch_departures(fromCRS, toCRS)
-        body = json.dumps(departures)
+        departures = TrainApp(service).next_departures(fromCRS, toCRS)
+        data = {
+            "departures": departures
+        }
+
+        body = json.dumps(data)
         response = build_response_object(200, body);
 
     except Exception as e:
@@ -46,12 +50,11 @@ def iot(event, context):
         station_list = StationList()
         fromCRS, toCRS = extract_CRS(event, station_list)
         service = DarwinService(WSDL, token)
-        data = TrainApp(service).fetch_departures(fromCRS, toCRS)
-        trains = data['departures'];
+        trains = TrainApp(service).next_departures(fromCRS, toCRS)
+
         if len(trains) > 0:
             etd = trains[0]['origin']['etd']
-            hour, minute = etd.split(":")
-            time = int(hour) * 60 + int(minute)
+            time = time_to_integer(etd)
         else:
             time = ""
 

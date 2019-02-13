@@ -21,3 +21,8 @@ def build_response_object(status_code, body):
         "body": body
     }
     return response
+
+def time_to_integer(time_string):
+    hour, minute = time_string.split(":")
+    time_int = int(hour) * 60 + int(minute)
+    return time_int

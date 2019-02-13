@@ -1,5 +1,5 @@
 import unittest
-from lib.trainfactory import calculate_time
+from lib.trainapp import calculate_time
 
 class TestCalculateTime(unittest.TestCase):
 
@@ -14,6 +14,7 @@ class TestCalculateTime(unittest.TestCase):
         std = "12:20"
         calculatedEtd = calculate_time(etd, std)
         self.assertEqual(calculatedEtd, etd)
+
 
 if __name__ == '__main__':
     unittest.main()
