@@ -4,18 +4,9 @@ import os
 
 
 class TrainApp:
-    def __init__(self, client, token):
-        self.client = client
-        self.token = token
+    def __init__(self, darwin_service):
+        self.darwin_service = darwin_service
         return
-
-    def load_services(self, fromCRS, toCRS):
-        try:
-            response = self.client.service.GetDepBoardWithDetails(numRows=4, crs=fromCRS, filterCrs=toCRS, timeOffset=0, timeWindow=120, _soapheaders={"AccessToken":self.token})
-            return response
-
-        except(zeep.exceptions.Fault):
-            print("Exception")
 
     def sort_departures(self, departures):
         return sorted(departures, key=lambda k:k['origin']['std'])
@@ -26,7 +17,7 @@ class TrainApp:
     def fetch_departures(self, fromCRS, toCRS):
         departures = []
 
-        response = self.load_services(fromCRS, toCRS)
+        response = self.darwin_service.load_departures(fromCRS, toCRS)
 
         if response.trainServices is not None:
             services = response.trainServices.service
