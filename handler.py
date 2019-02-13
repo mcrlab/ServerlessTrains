@@ -2,6 +2,7 @@ from lib.trainapp import TrainApp
 from lib.stationlist import StationList
 import json
 
+
 def stations(event, context):
 
     stationList = StationList()
@@ -10,8 +11,8 @@ def stations(event, context):
     response = {
         "statusCode": 200,
         "headers": {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Credentials': True,
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Credentials': True,
         },
         "body": json.dumps(data)
     }
@@ -33,29 +34,27 @@ def next(event, context):
 
         trains = TrainApp().fetchDeparturesForStation(fromCRS, toCRS)
 
-        for train in trains:
-            print(train['origin']['etd'])
 
         response = {
             "statusCode": 200,
             "headers": {
-              'Access-Control-Allow-Origin': '*',
-              'Access-Control-Allow-Credentials': True,
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': True,
             },
-            "body": json.dumps(data)
+            "body": json.dumps(trains)
         }
     except Exception as e:
-       print(e)
-       response = {
-           "statusCode": 500,
-           "headers": {
-             'Access-Control-Allow-Origin': '*',
-             'Access-Control-Allow-Credentials': True,
-           },
-           "body": str(e)
-       }
+        print(e)
+        response = {
+            "statusCode": 500,
+            "headers": {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': True,
+            },
+            "body": str(e)
+        }
     finally:
-       return response
+        return response
 
 
 def iot(event, context):
@@ -82,20 +81,20 @@ def iot(event, context):
         response = {
             "statusCode": 200,
             "headers": {
-              'Access-Control-Allow-Origin': '*',
-              'Access-Control-Allow-Credentials': True,
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': True,
             },
             "body": time
         }
 
     except Exception as e:
-       response = {
-           "statusCode": 500,
-           "headers": {
-             'Access-Control-Allow-Origin': '*',
-             'Access-Control-Allow-Credentials': True,
-           },
-           "body": str(e)
-       }
+        response = {
+            "statusCode": 500,
+            "headers": {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': True,
+            },
+            "body": str(e)
+        }
     finally:
-       return response
+        return response
