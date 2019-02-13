@@ -7,39 +7,39 @@ def calculate_time(estimated, scheduled):
     else:
         return estimated
 
-def get_calling_points(serviceData):
-    return serviceData['subsequentCallingPoints']['callingPointList'][0]['callingPoint'];
+def get_calling_points(service_data):
+    return service_data['subsequentCallingPoints']['callingPointList'][0]['callingPoint'];
 
 def get_destination(calling_points, destination_crs):
     return next(point for point in calling_points if point["crs"] == destination_crs)
 
-def get_arrival_time(service_data, destination_CRS):
+def get_arrival_time(service_data, destination_crs):
     calling_points = get_calling_points(service_data);
-    destination = get_destination(calling_points, destination_CRS)
+    destination = get_destination(calling_points, destination_crs)
     scheduled_time = destination['st']
     estimated_time = destination['et']
     estimated_time = calculate_time(scheduled_time, estimated_time)
 
     return scheduled_time, estimated_time
 
-def buildService(service_data, fromCRS, toCRS):
+def buildService(service_data, from_crs, to_crs):
     stationList = StationList()
-    originName = stationList.getStationName(fromCRS)
-    destinationName = stationList.getStationName(toCRS)
+    origin_name = stationList.getStationName(from_crs)
+    destination_name = stationList.getStationName(to_crs)
 
     data = {}
     data['id'] = service_data.serviceID
 
     data['origin'] = {}
-    data['origin']['name'] = originName
-    data['origin']['crs'] = fromCRS
+    data['origin']['name'] = origin_name
+    data['origin']['crs'] = from_crs
     data['origin']['std'] = service_data.std
     data['origin']['etd'] = calculate_time(service_data.etd, service_data.std)
 
     data['destination'] = {}
-    data['destination']['name'] = destinationName
-    data['destination']['crs'] = toCRS
-    data['destination']['sta'], data['destination']['eta'] = get_arrival_time(service_data, toCRS)
+    data['destination']['name'] = destination_name
+    data['destination']['crs'] = to_crs
+    data['destination']['sta'], data['destination']['eta'] = get_arrival_time(service_data, to_crs)
 
     data['isCancelled'] = service_data.isCancelled
 

@@ -1,6 +1,7 @@
 import unittest
 from lib.utilities import build_response_object
 from lib.utilities import extract_CRS
+from lib.utilities import time_to_integer
 from nose.tools import *
 
 class TestUtilities(unittest.TestCase):
@@ -23,6 +24,12 @@ class TestUtilities(unittest.TestCase):
     def test_extract_CRS(self):
         raise Exception("cheese")
         return
+
+    def test_time_to_integer(self):
+        time_string = "1:30"
+        time_integer = time_to_integer(time_string)
+        expected = 90
+        self.assertEqual(time_integer, expected)
 
 if __name__ == '__main__':
     unittest.main()
