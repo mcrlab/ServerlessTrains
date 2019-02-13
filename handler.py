@@ -5,57 +5,59 @@ import json
 import os
 
 WSDL = os.environ['WSDL']
+token = os.environ['DARWIN_TOKEN']
+
+
+def extract_CRS(event):
+    stationList = StationList()
+
+    fromCRS = event['pathParameters']['from'].upper()
+    if stationList.validateCRS(fromCRS) is not True:
+        raise Exception("from CRS Code is invalid")
+
+    toCRS = event['pathParameters']['to'].upper()
+    if stationList.validateCRS(toCRS) is not True:
+        raise Exception("to CRS Code is invalid")
+
+    return fromCRS, toCRS
+
+
+def build_response_object(status_code, body):
+    response = {
+        "statusCode": status_code,
+        "headers": {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Credentials': True,
+        },
+        "body": body
+    }
+    return response
+
 
 def stations(event, context):
 
     stationList = StationList()
     data = stationList.stations()
-
-    response = {
-        "statusCode": 200,
-        "headers": {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Credentials': True,
-        },
-        "body": json.dumps(data)
-    }
+    body = json.dumps(data)
+    response = build_response_object(200, body);
     return response
 
 
 def next(event, context):
     response = {}
     try:
-        stationList = StationList()
 
-        fromCRS = event['pathParameters']['from'].upper()
-        if stationList.validateCRS(fromCRS) is not True:
-            raise Exception("CRS Code is invalid")
-
-        toCRS = event['pathParameters']['to'].upper()
-        if stationList.validateCRS(toCRS) is not True:
-            raise Exception("CRS Code is invalid")
+        fromCRS, toCRS = extract_CRS(event)
 
         client = zeep.Client(wsdl=WSDL)
-        departures = TrainApp(client).fetchDeparturesForStation(fromCRS, toCRS)
+        departures = TrainApp(client, token).fetch_departures(fromCRS, toCRS)
+        body = json.dumps(departures)
+        response = build_response_object(200, body);
 
-        response = {
-            "statusCode": 200,
-            "headers": {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials': True,
-            },
-            "body": json.dumps(departures)
-        }
     except Exception as e:
-        print(e)
-        response = {
-            "statusCode": 500,
-            "headers": {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials': True,
-            },
-            "body": str(e)
-        }
+        body = str(e)
+        response = build_response_object(500, body);
+
     finally:
         return response
 
@@ -63,17 +65,9 @@ def next(event, context):
 def iot(event, context):
     response = {}
     try:
-        stationList = StationList()
-
-        fromCRS = event['pathParameters']['from'].upper()
-        if stationList.validateCRS(fromCRS) is not True:
-            raise Exception("CRS Code is invalid")
-
-        toCRS = event['pathParameters']['to'].upper()
-        if stationList.validateCRS(toCRS) is not True:
-            raise Exception("CRS Code is invalid")
+        fromCRS, toCRS = extract_CRS(event)
         client = zeep.Client(wsdl=WSDL)
-        trains = TrainApp(client).fetchDeparturesForStation(fromCRS, toCRS)
+        trains = TrainApp(client, token).fetch_departures(fromCRS, toCRS)
         if len(trains) > 0:
             etd = trains[0]['origin']['etd']
             hour, minute = etd.split(":")
@@ -81,23 +75,11 @@ def iot(event, context):
         else:
             time = ""
 
-        response = {
-            "statusCode": 200,
-            "headers": {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials': True,
-            },
-            "body": time
-        }
+        response = build_response_object(200, time)
 
     except Exception as e:
-        response = {
-            "statusCode": 500,
-            "headers": {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials': True,
-            },
-            "body": str(e)
-        }
+        body = str(e)
+        response = build_response_object(500, body);
+
     finally:
         return response
