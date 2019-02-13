@@ -34,14 +34,16 @@ def next(event, context):
 
         trains = TrainApp().fetchDeparturesForStation(fromCRS, toCRS)
 
-
+        data = {
+            "departures": trains
+        }
         response = {
             "statusCode": 200,
             "headers": {
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Credentials': True,
             },
-            "body": json.dumps(trains)
+            "body": json.dumps(data)
         }
     except Exception as e:
         print(e)

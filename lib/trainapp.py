@@ -15,6 +15,9 @@ class TrainApp:
         except(zeep.exceptions.Fault):
             print("Exception")
 
+    def sortDepartures(self, departures):
+        return sorted(departures, key=lambda k:k['origin']['std'])
+
     def fetchDeparturesForStation(self, fromCRS, toCRS):
         departures = []
 
@@ -28,5 +31,6 @@ class TrainApp:
             trainServiceFactory = TrainServiceFactory(fromCRS, toCRS, services)
             departures = trainServiceFactory.getDepartures()
 
-        sorted_departures = sorted(departures, key=lambda k:k['origin']['std'])
+        sorted_departures = self.sortDepartures(departures)
+
         return sorted_departures
