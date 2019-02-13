@@ -17,7 +17,8 @@ def get_arrival_time(service_data, destination_CRS):
     calling_points = get_calling_points(service_data);
     destination = get_destination(calling_points, destination_CRS)
     scheduled_time = destination['st']
-    estimated_time = calculate_time(scheduled_time, destination['et'])
+    estimated_time = destination['et']
+    estimated_time = calculate_time(scheduled_time, estimated_time)
 
     return scheduled_time, estimated_time
 
