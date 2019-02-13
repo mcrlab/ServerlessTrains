@@ -27,8 +27,8 @@ def get_arrival_time(service_data, destination_crs):
 
 def buildService(service_data, from_crs, to_crs):
     stationList = StationList()
-    origin_name = stationList.getStationName(from_crs)
-    destination_name = stationList.getStationName(to_crs)
+    origin_name = stationList.get_station_name(from_crs)
+    destination_name = stationList.get_station_name(to_crs)
 
     data = {}
     data['id'] = service_data.serviceID
