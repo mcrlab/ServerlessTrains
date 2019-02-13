@@ -10,11 +10,10 @@ def calculate_time(estimated, scheduled):
 def get_calling_points(serviceData):
     return serviceData['subsequentCallingPoints']['callingPointList'][0]['callingPoint'];
 
-def get_destination(callingPoints, destinationCRS):
-    return next(item for item in callingPoints if item["crs"] == destinationCRS)
+def get_destination(calling_points, destination_crs):
+    return next(point for point in calling_points if point["crs"] == destination_crs)
 
 def get_arrival_time(service_data, destination_CRS):
-
     calling_points = get_calling_points(service_data);
     destination = get_destination(calling_points, destination_CRS)
     scheduled_time = destination['st']
