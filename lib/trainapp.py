@@ -8,7 +8,10 @@ def calculate_time(estimated, scheduled):
         return estimated
 
 def get_calling_points(service_data):
-    return service_data['subsequentCallingPoints']['callingPointList'][0]['callingPoint'];
+    try:
+        return service_data['subsequentCallingPoints']['callingPointList'][0]['callingPoint'];
+    except KeyError as e:
+        raise Exception("Failed to get calling points")
 
 def get_destination(calling_points, destination_crs):
     return next(point for point in calling_points if point["crs"] == destination_crs)
@@ -59,10 +62,10 @@ class TrainApp:
     def sort_departures(self, departures):
         return sorted(departures, key=lambda k:k['origin']['std'])
 
-    def next_departures(self, from_crs, to_crs):
+    def next_departures(self, from_crs, to_crs, number_of_departures):
         departures = []
 
-        response = self.darwin_service.load_departures(from_crs, to_crs)
+        response = self.darwin_service.load_departures(from_crs, to_crs, number_of_departures)
 
         if response.trainServices is not None:
             for service_data in response.trainServices.service:

@@ -6,10 +6,10 @@ class DarwinService():
         self.token = token
         return
 
-    def load_departures(self, from_crs, to_crs):
+    def load_departures(self, from_crs, to_crs, number_of_departures):
         try:
             client = zeep.Client(self.wsdl)
-            response = client.service.GetDepBoardWithDetails(numRows=4,
+            response = client.service.GetDepBoardWithDetails(numRows=number_of_departures,
                                                             crs=from_crs,
                                                             filterCrs=to_crs,
                                                             timeOffset=0,

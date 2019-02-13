@@ -26,9 +26,9 @@ def next(event, context):
     try:
         station_list = StationList()
         fromCRS, toCRS = extract_CRS(event, station_list)
-
+        number_of_departures = 4
         service = DarwinService(WSDL, token)
-        departures = TrainApp(service).next_departures(fromCRS, toCRS)
+        departures = TrainApp(service).next_departures(fromCRS, toCRS, number_of_departures)
         data = {
             "departures": departures
         }
@@ -50,7 +50,8 @@ def iot(event, context):
         station_list = StationList()
         fromCRS, toCRS = extract_CRS(event, station_list)
         service = DarwinService(WSDL, token)
-        trains = TrainApp(service).next_departures(fromCRS, toCRS)
+        number_of_departures = 1
+        trains = TrainApp(service).next_departures(fromCRS, toCRS, number_of_departures)
 
         if len(trains) > 0:
             etd = trains[0]['origin']['etd']

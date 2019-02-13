@@ -1,5 +1,8 @@
 import unittest
 from lib.trainapp import calculate_time
+from lib.trainapp import get_destination
+from lib.trainapp import get_calling_points
+from nose.tools import *
 
 class TestCalculateTime(unittest.TestCase):
 
@@ -9,12 +12,28 @@ class TestCalculateTime(unittest.TestCase):
         calculatedEtd = calculate_time(etd, std)
         self.assertEqual(calculatedEtd, std)
 
+    def test_if_etd_is_delayed_then_etd_should_remain_unchanged(self):
+        etd = "10:40"
+        std = "10:30"
+        calculatedEtd = calculate_time(etd, std)
+        self.assertEqual(calculatedEtd, etd)
+
     def test_if_etd_is_not_on_time_then_etd_should_be_whatever_time_is_passed(self):
         etd = "12:30"
         std = "12:20"
         calculatedEtd = calculate_time(etd, std)
         self.assertEqual(calculatedEtd, etd)
 
+    def test_get_destination_should_match_on_the_destination_crs(self):
+        calling_points = [ { "crs" : "ABC", "name": "test" }, ]
+        destination_crs = "ABC"
+        destination = get_destination(calling_points, destination_crs)
+        self.assertEqual(destination['name'], "test")
+
+    @raises(Exception)
+    def test_get_calling_points_should_raise_exception_if_missing_calling_points(self):
+        service_data = {}
+        get_calling_points(service_data)
 
 if __name__ == '__main__':
     unittest.main()
