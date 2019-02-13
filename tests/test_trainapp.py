@@ -18,18 +18,15 @@ class TestCalculateTime(unittest.TestCase):
         calculatedEtd = calculate_time(etd, std)
         self.assertEqual(calculatedEtd, etd)
 
-    def test_if_etd_is_not_on_time_then_etd_should_be_whatever_time_is_passed(self):
-        etd = "12:30"
-        std = "12:20"
-        calculatedEtd = calculate_time(etd, std)
-        self.assertEqual(calculatedEtd, etd)
 
+class TestGetDestination(unittest.TestCase):
     def test_get_destination_should_match_on_the_destination_crs(self):
         calling_points = [ { "crs" : "ABC", "name": "test" }, ]
         destination_crs = "ABC"
         destination = get_destination(calling_points, destination_crs)
         self.assertEqual(destination['name'], "test")
 
+class TestGetCallingPoints(unittest.TestCase):
     @raises(Exception)
     def test_get_calling_points_should_raise_exception_if_missing_calling_points(self):
         service_data = {}
