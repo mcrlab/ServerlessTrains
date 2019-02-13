@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - checkout
-      - run: pip install -r requirements.txt
+      - run: sudo pip install -r requirements.txt
       - run:
           name: Install python test dependencies
           command: |
