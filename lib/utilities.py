@@ -1,14 +1,11 @@
-def extract_CRS(event, station_list):
+def extract_crs(event):
+    try:
+        from_crs = event['pathParameters']['from']
+        to_crs = event['pathParameters']['to']
+    except KeyError:
+        raise Exception("CRS not provided")
 
-    fromCRS = event['pathParameters']['from'].upper()
-    if station_list.validateCRS(fromCRS) is not True:
-        raise Exception("from CRS Code is invalid")
-
-    toCRS = event['pathParameters']['to'].upper()
-    if station_list.validateCRS(toCRS) is not True:
-        raise Exception("to CRS Code is invalid")
-
-    return fromCRS, toCRS
+    return from_crs, to_crs
 
 
 def build_response_object(status_code, body):

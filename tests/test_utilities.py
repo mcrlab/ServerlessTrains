@@ -1,6 +1,6 @@
 import unittest
 from lib.utilities import build_response_object
-from lib.utilities import extract_CRS
+from lib.utilities import extract_crs
 from lib.utilities import time_to_integer
 from nose.tools import *
 
@@ -21,9 +21,16 @@ class TestUtilities(unittest.TestCase):
         self.assertEqual(response, expected)
 
     @raises(Exception)
-    def test_extract_CRS(self):
-        raise Exception("cheese")
-        return
+    def test_extract_crs_should_raise_if_event_dictionary_doesnt_contain_station(self):
+        event = {}
+        from_crs, to_crs = extract_crs(event)
+
+    def test_extract_crs_should_return_from_and_to_crs_from_event(self):
+        event = { "pathParameters" : { "from" :"fromCRS", "to":"toCRS"}}
+        from_crs, to_crs = extract_crs(event)
+        self.assertEqual(from_crs, "fromCRS")
+        self.assertEqual(to_crs, "toCRS")
+
 
     def test_time_to_integer(self):
         time_string = "1:30"

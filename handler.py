@@ -1,7 +1,7 @@
 from lib.trainapp import TrainApp
 from lib.stationlist import StationList
 from lib.darwinservice import DarwinService
-from lib.utilities import extract_CRS
+from lib.utilities import extract_crs
 from lib.utilities import build_response_object
 from lib.utilities import time_to_integer
 
@@ -25,10 +25,15 @@ def next(event, context):
     response = {}
     try:
         station_list = StationList()
-        fromCRS, toCRS = extract_CRS(event, station_list)
         number_of_departures = 4
         service = DarwinService(WSDL, token)
-        departures = TrainApp(service).next_departures(fromCRS, toCRS, number_of_departures)
+
+        from_crs, to_crs = extract_crs(event)
+        
+        station_list.validate_crs(from_crs)
+        station_list.validate_crs(to_crs)
+
+        departures = TrainApp(service).next_departures(from_crs, to_crs, number_of_departures)
         data = {
             "departures": departures
         }
@@ -48,7 +53,7 @@ def iot(event, context):
     response = {}
     try:
         station_list = StationList()
-        fromCRS, toCRS = extract_CRS(event, station_list)
+        fromCRS, toCRS = extract_crs(event)
         service = DarwinService(WSDL, token)
         number_of_departures = 1
         trains = TrainApp(service).next_departures(fromCRS, toCRS, number_of_departures)

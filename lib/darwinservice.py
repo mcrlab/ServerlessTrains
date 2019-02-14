@@ -18,4 +18,4 @@ class DarwinService():
             return response
 
         except(zeep.exceptions.Fault):
-            print("Exception")
+            raise Exception("Failed to make request to Darwin API")
