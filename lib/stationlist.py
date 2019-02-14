@@ -14,8 +14,8 @@ class StationList:
             raise Exception("CRS not found")
         return search_crs in crs_list
 
-    def getStationName(self, searchCRS):
-        station = next(item for item in self.locations if item["crs"] == searchCRS)
+    def getStationName(self, search_crs):
+        station = next(item for item in self.locations if item["crs"] == search_crs)
         return station['name']
 
     def stations(self):

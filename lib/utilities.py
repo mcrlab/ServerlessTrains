@@ -5,6 +5,9 @@ def extract_crs(event):
     except KeyError:
         raise Exception("CRS not provided")
 
+    from_crs = from_crs.upper()
+    to_crs = to_crs.upper()
+    
     return from_crs, to_crs
 
 

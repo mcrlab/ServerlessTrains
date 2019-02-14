@@ -26,10 +26,16 @@ class TestUtilities(unittest.TestCase):
         from_crs, to_crs = extract_crs(event)
 
     def test_extract_crs_should_return_from_and_to_crs_from_event(self):
-        event = { "pathParameters" : { "from" :"fromCRS", "to":"toCRS"}}
+        event = { "pathParameters" : { "from" :"FROM", "to":"TO"}}
         from_crs, to_crs = extract_crs(event)
-        self.assertEqual(from_crs, "fromCRS")
-        self.assertEqual(to_crs, "toCRS")
+        self.assertEqual(from_crs, "FROM")
+        self.assertEqual(to_crs, "TO")
+
+    def test_extract_crs_should_return_from_and_to_crs_from_event_and_uppercase(self):
+        event = { "pathParameters" : { "from" :"from", "to":"to"}}
+        from_crs, to_crs = extract_crs(event)
+        self.assertEqual(from_crs, "FROM")
+        self.assertEqual(to_crs, "TO")
 
 
     def test_time_to_integer(self):
