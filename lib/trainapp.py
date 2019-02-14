@@ -63,6 +63,10 @@ class TrainApp:
         return sorted(departures, key=lambda k:k['origin']['std'])
 
     def next_departures(self, from_crs, to_crs, number_of_departures):
+        station_list = StationList()
+        station_list.validate_crs(from_crs)
+        station_list.validate_crs(to_crs)
+
         departures = []
 
         response = self.darwin_service.load_departures(from_crs, to_crs, number_of_departures)
