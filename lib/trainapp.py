@@ -64,8 +64,8 @@ class TrainApp:
 
     def next_departures(self, from_crs, to_crs, number_of_departures):
         station_list = StationList()
-        station_list.validate_crs(from_crs)
-        station_list.validate_crs(to_crs)
+        if not station_list.validate_crs(from_crs) or not station_list.validate_crs(to_crs):
+            raise Exception("CRS code is invalid")
 
         departures = []
 

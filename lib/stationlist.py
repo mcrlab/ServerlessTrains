@@ -10,8 +10,6 @@ class StationList:
     def validate_crs(self, search_crs):
         crs_list = [item['crs'] for item in self.locations]
 
-        if not search_crs in crs_list:
-            raise Exception("CRS not found")
         return search_crs in crs_list
 
     def get_station_name(self, search_crs):
