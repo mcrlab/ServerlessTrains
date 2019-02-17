@@ -31,6 +31,15 @@ class TestGetCallingPoints(unittest.TestCase):
     def test_get_calling_points_should_raise_exception_if_missing_calling_points(self):
         service_data = {}
         get_calling_points(service_data)
+    
+    def test_get_calling_points_should_extract_calling_point_data_from_dictionary(self):
+        service_data = {
+            'subsequentCallingPoints': { 
+                'callingPointList':[{'callingPoint':"DATA"}]
+                }
+            }
+        calling_points = get_calling_points(service_data)
+        self.assertEqual(calling_points, "DATA")
 
 if __name__ == '__main__':
     unittest.main()
