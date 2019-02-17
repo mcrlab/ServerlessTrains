@@ -1,8 +1,11 @@
 import unittest
+from lib.stationlist import StationList
 from lib.trainapp import TrainApp
 from lib.trainapp import calculate_time
 from lib.trainapp import get_destination
 from lib.trainapp import get_calling_points
+from unittest.mock import patch
+from lib.trainapp import james
 from nose.tools import *
 
 class TestCalculateTime(unittest.TestCase):
@@ -67,7 +70,11 @@ class TestTrainApp(unittest.TestCase):
         app = TrainApp(fake_darwin_service)
         sorted_departures = app.sort_departures(departures)
         self.assertEqual(sorted_departures[0]['id'], '321')
-        
+
+    @patch.object(StationList, 'get_station_name')
+    def test_build_service(self, mock_get_station_name):
+        james()
+        mock_get_station_name.assert_called_with("CRS")
 
 if __name__ == '__main__':
     unittest.main()

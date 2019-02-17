@@ -25,6 +25,10 @@ def get_arrival_time(service_data, destination_crs):
 
     return scheduled_time, estimated_time
 
+def james():
+    stationList = StationList()
+    stationList.get_station_name("CRS")
+
 def buildService(service_data, from_crs, to_crs):
     stationList = StationList()
     origin_name = stationList.get_station_name(from_crs)
