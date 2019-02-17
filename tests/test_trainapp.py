@@ -43,6 +43,11 @@ class TestGetCallingPoints(unittest.TestCase):
         self.assertEqual(calling_points, "DATA")
 
 class TestTrainApp(unittest.TestCase):
+    def test_setting_darwin_service(self):
+        fake_darwin_service = {}
+        app = TrainApp(fake_darwin_service)
+        self.assertEqual(app.darwin_service, fake_darwin_service)
+        
     def test_sort_departures(self):
         fake_darwin_service = {}
         departures = [
