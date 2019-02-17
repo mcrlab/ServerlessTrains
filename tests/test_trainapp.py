@@ -1,4 +1,5 @@
 import unittest
+from lib.trainapp import TrainApp
 from lib.trainapp import calculate_time
 from lib.trainapp import get_destination
 from lib.trainapp import get_calling_points
@@ -40,6 +41,28 @@ class TestGetCallingPoints(unittest.TestCase):
             }
         calling_points = get_calling_points(service_data)
         self.assertEqual(calling_points, "DATA")
+
+class TestTrainApp(unittest.TestCase):
+    def test_sort_departures(self):
+        fake_darwin_service = {}
+        departures = [
+            { 
+            'id': '123',
+            'origin': {
+                'std' : '12:30'
+                }
+            },
+                        { 
+            'id': '321',
+            'origin': {
+                'std' : '11:30'
+                }
+            },
+        ]
+        app = TrainApp(fake_darwin_service)
+        sorted_departures = app.sort_departures(departures)
+        self.assertEqual(sorted_departures[0]['id'], '321')
+        
 
 if __name__ == '__main__':
     unittest.main()
