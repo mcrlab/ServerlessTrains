@@ -9,7 +9,7 @@ def calculate_time(estimated, scheduled):
 
 def get_calling_points(service_data):
     try:
-        return service_data;
+        return service_data['subsequentCallingPoints']['callingPointList'][0]['callingPoint'];
     except KeyError as e:
         raise Exception("Failed to get calling points")
 
