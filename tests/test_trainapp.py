@@ -5,7 +5,7 @@ from lib.trainapp import calculate_time
 from lib.trainapp import get_destination
 from lib.trainapp import get_calling_points
 from unittest.mock import patch
-from nose.tools import *
+import pytest
 
 class TestCalculateTime(unittest.TestCase):
 
@@ -30,10 +30,11 @@ class TestGetDestination(unittest.TestCase):
         self.assertEqual(destination['name'], "test")
 
 class TestGetCallingPoints(unittest.TestCase):
-    @raises(Exception)
+
     def test_get_calling_points_should_raise_exception_if_missing_calling_points(self):
-        service_data = {}
-        get_calling_points(service_data)
+        with pytest.raises(Exception) as e_info:
+            service_data = {}
+            get_calling_points(service_data)
     
     def test_get_calling_points_should_extract_calling_point_data_from_dictionary(self):
         service_data = {

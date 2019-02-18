@@ -1,8 +1,8 @@
 import unittest
+import pytest
 from lib.utilities import build_response_object
 from lib.utilities import extract_crs
 from lib.utilities import time_to_integer
-from nose.tools import *
 
 class TestUtilities(unittest.TestCase):
 
@@ -20,10 +20,11 @@ class TestUtilities(unittest.TestCase):
         response = build_response_object(status_code, body)
         self.assertEqual(response, expected)
 
-    @raises(Exception)
+
     def test_extract_crs_should_raise_if_event_dictionary_doesnt_contain_station(self):
-        event = {}
-        from_crs, to_crs = extract_crs(event)
+        with pytest.raises(Exception) as e_info:
+            event = {}
+            from_crs, to_crs = extract_crs(event)
 
     def test_extract_crs_should_return_from_and_to_crs_from_event(self):
         event = { "pathParameters" : { "from" :"FROM", "to":"TO"}}
