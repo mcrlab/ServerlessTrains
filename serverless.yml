@@ -63,7 +63,7 @@ custom:
     dockerizePip: non-linux
 
   customDomain:
-    domainName: trains.mcrlab.co.uk
+    domainName: ${env:SERVICE_DOMAIN}
     basePath: ''
     stage: ${self:provider.stage}
     createRoute53Record: true
