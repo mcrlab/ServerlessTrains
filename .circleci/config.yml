@@ -14,16 +14,11 @@ jobs:
     steps:
       - checkout
       - run: sudo pip install -r requirements.txt
-      - run:
-          name: Install python test dependencies
-          command: |
-            sudo pip install nose
-            sudo pip install coverage
 
       - run:
-          name: Run tests with code coverage
+          name: Run tests
           command: |
-            nosetests --with-coverage
+            pytest
 
   deploy:
     working_directory: ~/python-ci
