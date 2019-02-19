@@ -18,7 +18,6 @@ class StationList:
 
     def get_station_name(self, search_crs):
         locations = self.load_stations()
-        print(locations)
         station = next(item for item in locations if item["crs"] == search_crs)
         return station['name']
 
