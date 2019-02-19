@@ -12,8 +12,11 @@ class ServiceBuilder():
         service['origin'] = {}
         service['origin']['crs'] = from_crs
         service['origin']['name'] = station_list.get_station_name(from_crs)
+        service['origin']['scheduled'] = service_data['std']
+        service['origin']['estimated'] = {}
 
         service['destination'] = {}
         service['destination']['crs'] = to_crs
         service['destination']['name'] = station_list.get_station_name(to_crs)
+
         return service

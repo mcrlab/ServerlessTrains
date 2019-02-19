@@ -1,3 +1,9 @@
+def calculate_time(estimated, scheduled):
+    if(estimated == "On time"):
+        return scheduled
+    else:
+        return estimated
+
 def extract_crs(event):
     try:
         from_crs = event['pathParameters']['from']
