@@ -46,9 +46,9 @@ functions:
     handler: handler.spread
     events:
       - http:
-        path: spread
-        method: post
-        cors: true
+          path: spread
+          method: post
+          cors: true
         
         
           
