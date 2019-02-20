@@ -6,7 +6,8 @@ from unittest.mock import patch, call
 mock_service_data = {
     "serviceID": "SERVICE_ID",
     "std": "12:00",
-    "etd": "On time"
+    "etd": "On time",
+    "isCancelled": False
 }
 
 class TestServiceBuilder(unittest.TestCase):
@@ -15,12 +16,12 @@ class TestServiceBuilder(unittest.TestCase):
         self.builder = ServiceBuilder()
         self.from_crs = "MAN"
         self.to_crs = "NMC"
-        patcher = patch.object(StationList,'get_station_name', return_value="STATION_NAME")
-        self.mock_get_station_name = patcher.start()
-        self.addCleanup(patcher.stop)
+        self.patcher = patch.object(StationList,'get_station_name', return_value="STATION_NAME")
+        self.mock_get_station_name = self.patcher.start()
        
     def tearDown(self):
-        pass
+        #self.patcher.stop()
+        patch.stopall()
 
     def test_it_can_be_initialised(self):
         assert self.builder is not None
@@ -53,7 +54,7 @@ class TestServiceBuilder(unittest.TestCase):
     def test_build_should_return_a_dictionary_with_an_estimated_departure_time(self):
         service = self.builder.build(mock_service_data, self.from_crs, self.to_crs)
         self.assertIn("estimated", service['origin'].keys())
-
+        self.assertEqual(service['origin']['estimated'],"12:00")
 
     # destination
     def test_build_should_return_a_dictionary_with_a_destination(self):
@@ -70,7 +71,15 @@ class TestServiceBuilder(unittest.TestCase):
         self.assertEqual(service['origin']['name'], "STATION_NAME")
         self.assertEqual(service['destination']['name'], "STATION_NAME")
 
+    def test_should_return_a_dictionary_with_is_cancelled(self):
+        service = self.builder.build(mock_service_data, self.from_crs, self.to_crs)
+        self.assertIn("isCancelled", service.keys())
 
+    def test_should_return_a_dictionary_with_is_cancelled_set_to_service_data(self):
+        service = self.builder.build(mock_service_data, self.from_crs, self.to_crs)
+        self.assertEqual(service["isCancelled"], False)
+
+    
 
 
     
