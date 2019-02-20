@@ -74,5 +74,6 @@ def iot(event, context):
         return response
 
 def spread(event, context):
-    response = build_response_object(200, json.dumps(event))
+    body = event['body']
+    response = build_response_object(200, body)
     return response
