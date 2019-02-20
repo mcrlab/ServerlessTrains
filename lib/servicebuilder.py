@@ -1,4 +1,5 @@
 from lib.stationlist import StationList
+from lib.utilities import calculate_time
 
 class ServiceBuilder():
     def __init__(self):
