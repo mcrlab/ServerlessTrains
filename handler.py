@@ -75,9 +75,21 @@ def iot(event, context):
 
 def spread(event, context):
     try:
+        service = DarwinService(WSDL, token)
         body = event['body']
         data = json.loads(body)
-        response = build_response_object(200, json.dumps(data))
+        trains = []
+
+        for origin in data['from']:
+            for destination in data['to']:
+                data = TrainApp(service).next_departures(origin, destination, 4)
+                trains = trains + data
+        
+        departures = {
+            "departures": trains
+        }
+
+        response = build_response_object(200, json.dumps(departures))
     except Exception as e:
         body = str(e)
         response = build_response_object(500, body)
