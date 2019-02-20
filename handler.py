@@ -68,7 +68,11 @@ def iot(event, context):
     except Exception as e:
         print(e)
         body = str(e)
-        response = build_response_object(500, body);
+        response = build_response_object(500, body)
 
     finally:
         return response
+
+def spread(event, context):
+    response = build_response_object(200, json.dumps(event))
+    return response

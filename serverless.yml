@@ -41,19 +41,17 @@ functions:
                paths:
                  from: true
                  to: true
-
-  departures:
-    handler: handler.list
+  
+  spread:
+    handler: handler.spread
     events:
       - http:
-          path: departures/{from}/{to}
-          method: get
-          cors: true
-          request:
-            parameters:
-               paths:
-                 from: true
-                 to: true
+        path: spread
+        method: post
+        cors: true
+        
+        
+          
 plugins:
   - serverless-python-requirements
   - serverless-domain-manager
