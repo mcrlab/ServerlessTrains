@@ -77,6 +77,4 @@ class TrainApp:
                 train_service = buildService(service_data, from_crs, to_crs)
                 departures.append(train_service)
 
-        sorted_departures = self.sort_departures(departures)
-
-        return sorted_departures
+        return departures
