@@ -84,8 +84,8 @@ def spread(event, context):
 
         for origin in data['from']:
             for destination in data['to']:
-                data = app.next_departures(origin, destination, 4)
-                trains = trains + data
+                new_train_data = app.next_departures(origin, destination, 4)
+                trains = trains + new_train_data
         
         departures = {
             "departures": app.sort_departures(trains)
