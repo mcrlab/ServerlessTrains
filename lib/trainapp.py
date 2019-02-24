@@ -37,13 +37,13 @@ def buildService(service_data, from_crs, to_crs):
     data['origin'] = {}
     data['origin']['name'] = origin_name
     data['origin']['crs'] = from_crs
-    data['origin']['std'] = service_data.std
-    data['origin']['etd'] = calculate_time(service_data.etd, service_data.std)
+    data['origin']['scheduled'] = service_data.std
+    data['origin']['estimated'] = calculate_time(service_data.etd, service_data.std)
 
     data['destination'] = {}
     data['destination']['name'] = destination_name
     data['destination']['crs'] = to_crs
-    data['destination']['sta'], data['destination']['eta'] = get_arrival_time(service_data, to_crs)
+    data['destination']['scheduled'], data['destination']['estimated'] = get_arrival_time(service_data, to_crs)
 
     data['isCancelled'] = service_data.isCancelled
 
