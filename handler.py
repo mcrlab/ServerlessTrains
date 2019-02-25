@@ -92,13 +92,18 @@ def spread(event, context):
         
         sorted_departures = app.sort_departures(departures)
 
-        body = ""
+        data = [];
 
         for index, departure in enumerate(sorted_departures):
             if index < number_of_departures:
-                body = body + departure['origin']['crs'] + "|" + departure['destination']['crs'] + "|" + str(time_to_integer(departure['origin']['estimated'])) + ","
+                departure = {
+                    "o" : departure['origin']['crs'],
+                    "d" : departure['destination']['crs'],
+                    "t" : time_to_integer(departure['origin']['estimated'])
+                }
+                data.append(departure);
             
-        response = build_response_object(200, body)
+        response = build_response_object(200, json.dumps(data))
     except Exception as e:
         body = str(e)
         response = build_response_object(500, body)
