@@ -58,7 +58,7 @@ def iot(event, context):
         trains = TrainApp(service).next_departures(from_crs, to_crs, number_of_departures)
 
         if len(trains) > 0:
-            etd = trains[0]['origin']['etd']
+            etd = trains[0]['origin']['estimated']
             time = time_to_integer(etd)
         else:
             time = ""
