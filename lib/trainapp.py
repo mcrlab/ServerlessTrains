@@ -61,7 +61,7 @@ class TrainApp:
         return
 
     def sort_departures(self, departures):
-        return sorted(departures, key=lambda k:k['origin']['std'])
+        return sorted(departures, key=lambda k:k['origin']['scheduled'])
 
     def next_departures(self, from_crs, to_crs, number_of_departures):
         station_list = StationList()

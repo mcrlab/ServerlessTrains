@@ -80,18 +80,25 @@ def spread(event, context):
         app = TrainApp(service)
         body = event['body']
         data = json.loads(body)
-        trains = []
+        departures = []
+        number_of_departures = data['limit']
+        if number_of_departures == 0:
+            raise Exception("No limit specified")
 
         for origin in data['from']:
             for destination in data['to']:
-                new_train_data = app.next_departures(origin, destination, 4)
-                trains = trains + new_train_data
+                new_departures_data = app.next_departures(origin, destination, number_of_departures)
+                departures = departures + new_departures_data
         
-        departures = {
-            "departures": app.sort_departures(trains)
-        }
+        sorted_departures = app.sort_departures(departures)
 
-        response = build_response_object(200, json.dumps(departures))
+        body = ""
+
+        for index, departure in enumerate(sorted_departures):
+            if index < number_of_departures:
+                body = body + departure['origin']['crs'] + "|" + departure['destination']['crs'] + "|" + str(time_to_integer(departure['origin']['estimated'])) + ","
+            
+        response = build_response_object(200, body)
     except Exception as e:
         body = str(e)
         response = build_response_object(500, body)
