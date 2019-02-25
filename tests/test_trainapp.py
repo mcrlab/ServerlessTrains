@@ -57,13 +57,13 @@ class TestTrainApp(unittest.TestCase):
             { 
             'id': '123',
             'origin': {
-                'std' : '12:30'
+                'scheduled' : '12:30'
                 }
             },
                         { 
             'id': '321',
             'origin': {
-                'std' : '11:30'
+                'scheduled' : '11:30'
                 }
             },
         ]
