@@ -99,7 +99,8 @@ def spread(event, context):
                 departure = {
                     "o" : departure['origin']['crs'],
                     "d" : departure['destination']['crs'],
-                    "t" : time_to_integer(departure['origin']['estimated'])
+                    "s" : time_to_integer(departure['origin']['scheduled']),
+                    "e" : time_to_integer(departure['origin']['estimated'])
                 }
                 data.append(departure);
             
