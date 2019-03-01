@@ -41,8 +41,9 @@ class DarwinService():
                     'id': "NOKEY"
                 }
             )
-            
-            print(result)
+    
+            if 'Item' in result:
+                print(result)
 
             return response
 
