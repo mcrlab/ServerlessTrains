@@ -38,12 +38,12 @@ class DarwinService():
 
             result = table.get_item(
                 Key={
-                    'id': key
+                    'id': "NOKEY"
                 }
             )
-
-            print(result)
             
+            print(result)
+
             return response
 
         except(zeep.exceptions.Fault):
