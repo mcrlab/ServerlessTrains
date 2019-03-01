@@ -1,4 +1,11 @@
 import zeep
+import boto3
+import datetime
+import json
+import pickle
+import os
+
+dynamodb = boto3.resource('dynamodb')
 
 class DarwinService():
     def __init__(self, wsdl, token):
@@ -8,6 +15,9 @@ class DarwinService():
 
     def load_departures(self, from_crs, to_crs, number_of_departures):
         try:
+            time = datetime.datetime.now().strftime('%H%M%d%m%Y')
+            key = from_crs + to_crs + time
+
             client = zeep.Client(self.wsdl)
             response = client.service.GetDepBoardWithDetails(numRows=number_of_departures,
                                                             crs=from_crs,
@@ -15,6 +25,16 @@ class DarwinService():
                                                             timeOffset=0,
                                                             timeWindow=120,
                                                             _soapheaders={"AccessToken":self.token})
+            pickled = pickle.dumps(response)
+            table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
+
+            item = {
+                'id': key,
+                'text': pickled
+            }
+
+            table.put_item(Item=item)
+
             return response
 
         except(zeep.exceptions.Fault):

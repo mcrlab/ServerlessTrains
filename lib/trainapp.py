@@ -71,7 +71,7 @@ class TrainApp:
         departures = []
 
         response = self.darwin_service.load_departures(from_crs, to_crs, number_of_departures)
-
+  
         if response.trainServices is not None:
             for service_data in response.trainServices.service:
                 train_service = buildService(service_data, from_crs, to_crs)
