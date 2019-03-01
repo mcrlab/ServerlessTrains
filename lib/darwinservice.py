@@ -26,7 +26,7 @@ class DarwinService():
                 }
             )
 
-            print(result['Item'])
+            print(result)
 
             client = zeep.Client(self.wsdl)
             response = client.service.GetDepBoardWithDetails(numRows=number_of_departures,
