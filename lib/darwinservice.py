@@ -20,14 +20,6 @@ class DarwinService():
             time = datetime.datetime.now().strftime('%H%M%d%m%Y')
             key = from_crs + to_crs + time
 
-            result = table.get_item(
-                Key={
-                    'id': key
-                }
-            )
-
-            print(result)
-
             client = zeep.Client(self.wsdl)
             response = client.service.GetDepBoardWithDetails(numRows=number_of_departures,
                                                             crs=from_crs,
@@ -44,6 +36,14 @@ class DarwinService():
 
             table.put_item(Item=item)
 
+            result = table.get_item(
+                Key={
+                    'id': key
+                }
+            )
+
+            print(result)
+            
             return response
 
         except(zeep.exceptions.Fault):
