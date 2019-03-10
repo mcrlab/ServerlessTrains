@@ -34,7 +34,7 @@ class DarwinService():
                 'text': pickled
             }
 
-            table.put_item(Item=item)
+            #table.put_item(Item=item)
 
             result = table.get_item(
                 Key={
