@@ -7,7 +7,22 @@ mock_service_data = {
     "serviceID": "SERVICE_ID",
     "std": "12:00",
     "etd": "On time",
-    "isCancelled": False
+    "isCancelled": None,
+    "platform": '1',
+    'subsequentCallingPoints': {
+        'callingPointList': [
+            { 'callingPoint':[
+                {
+                    'locationName' :'TestStation',
+                    'crs': 'NMC',
+                    'st': '10:27',
+                    'et': 'On time',
+                    'at': None,
+                    'isCancelled': None
+                }
+            ]}
+        ]
+    }
 }
 
 class TestServiceBuilder(unittest.TestCase):
@@ -77,7 +92,7 @@ class TestServiceBuilder(unittest.TestCase):
 
     def test_should_return_a_dictionary_with_is_cancelled_set_to_service_data(self):
         service = self.builder.build(mock_service_data, self.from_crs, self.to_crs)
-        self.assertEqual(service["isCancelled"], False)
+        self.assertEqual(service["isCancelled"], 0)
 
     
 

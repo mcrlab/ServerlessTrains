@@ -1,4 +1,4 @@
-def calculate_time(estimated, scheduled):
+def calculate_estimated_time(estimated, scheduled):
     if(estimated == "On time"):
         return scheduled
     else:

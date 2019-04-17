@@ -3,7 +3,6 @@ import pytest
 from lib.utilities import build_response_object
 from lib.utilities import extract_crs
 from lib.utilities import time_to_integer
-from lib.utilities import calculate_time
 
 class TestUtilities(unittest.TestCase):
 
@@ -46,17 +45,6 @@ class TestUtilities(unittest.TestCase):
         expected = 90
         self.assertEqual(time_integer, expected)
 
-    def test_calculate_departure_time_should_return_scheduled_if_estimated_on_time(self):
-        scheduled = "12:00"
-        estimated = "On time"
-        time = calculate_time(estimated, scheduled)
-        self.assertEqual(time, "12:00")
-
-    def test_calculate_departure_time_should_return_estimated_if_estimated_not_on_time(self):
-        scheduled = "12:00"
-        estimated = "12:01"
-        time = calculate_time(estimated, scheduled)
-        self.assertEqual(time, "12:01")
 
 if __name__ == '__main__':
     unittest.main()

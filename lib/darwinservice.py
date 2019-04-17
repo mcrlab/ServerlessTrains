@@ -22,6 +22,7 @@ class DarwinService():
                                                             timeWindow=120,
                                                             _soapheaders={"AccessToken":self.token})
             
+            print(response)
             return response
 
         except(zeep.exceptions.Fault):

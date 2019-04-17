@@ -1,5 +1,6 @@
 import os
 from .stationlist import StationList
+from .servicebuilder import ServiceBuilder
 
 def calculate_time(estimated, scheduled):
     if(estimated == "On time"):
@@ -45,7 +46,7 @@ def buildService(service_data, from_crs, to_crs):
     data['destination']['crs'] = to_crs
     data['destination']['scheduled'], data['destination']['estimated'] = get_arrival_time(service_data, to_crs)
 
-    data['isCancelled'] = service_data.isCancelled
+    data['isCancelled'] = 0 if service_data.isCancelled is None else 1
 
     if service_data.platform is not None:
         data['platform'] = service_data.platform
@@ -74,7 +75,7 @@ class TrainApp:
   
         if response.trainServices is not None:
             for service_data in response.trainServices.service:
-                train_service = buildService(service_data, from_crs, to_crs)
+                train_service = ServiceBuilder().build(service_data, from_crs, to_crs)
                 departures.append(train_service)
 
         return departures
