@@ -42,18 +42,7 @@ class TestServiceBuilder(unittest.TestCase):
     def test_it_can_be_initialised(self):
         assert self.builder is not None
     
-    def test_it_has_a_build_function(self):
-        assert self.builder.build is not None
-
-    def test_build_should_return_a_dictionary(self):
-        service = self.builder.build(mock_service_data, self.from_crs, self.to_crs)
-        self.assertIsInstance(service, dict)
-    
-    def test_build_should_return_a_dictionary_with_a_service_id(self):
-        service = self.builder.build(mock_service_data, self.from_crs, self.to_crs)
-        self.assertEqual(service['id'], "SERVICE_ID")
-    
-
+   
     # calculate_estimated_time
     def test_if_etd_is_on_time_then_etd_should_be_set_to_std(self):
         etd = "On time"
@@ -67,6 +56,7 @@ class TestServiceBuilder(unittest.TestCase):
         calculatedEtd = self.builder.calculate_estimated_time(etd, std)
         self.assertEqual(calculatedEtd, etd)
 
+
     # extract destination
     def test_extract_destination_should_match_on_the_destination_crs(self):
         calling_points = [ { "crs" : "ABC", "name": "test" }, ]
@@ -75,6 +65,7 @@ class TestServiceBuilder(unittest.TestCase):
         self.assertEqual(destination['name'], "test")
 
 
+    # calling points
     def test_get_calling_points_should_raise_exception_if_missing_calling_points(self):
         with pytest.raises(Exception) as e_info:
             service_data = {}
@@ -89,7 +80,18 @@ class TestServiceBuilder(unittest.TestCase):
         calling_points = self.builder.extract_calling_points(service_data)
         self.assertEqual(calling_points, "DATA")
 
+    # build
+    def test_it_has_a_build_function(self):
+        assert self.builder.build is not None
 
+    def test_build_should_return_a_dictionary(self):
+        service = self.builder.build(mock_service_data, self.from_crs, self.to_crs)
+        self.assertIsInstance(service, dict)
+    
+    def test_build_should_return_a_dictionary_with_a_service_id(self):
+        service = self.builder.build(mock_service_data, self.from_crs, self.to_crs)
+        self.assertEqual(service['id'], "SERVICE_ID")
+    
 
     # origin
     def test_build_should_return_a_dictionary_with_an_origin(self):
@@ -109,6 +111,7 @@ class TestServiceBuilder(unittest.TestCase):
         service = self.builder.build(mock_service_data, self.from_crs, self.to_crs)
         self.assertIn("estimated", service['origin'].keys())
         self.assertEqual(service['origin']['estimated'],"12:00")
+
 
     # destination
     def test_build_should_return_a_dictionary_with_a_destination(self):
