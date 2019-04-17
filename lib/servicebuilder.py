@@ -19,6 +19,9 @@ class ServiceBuilder():
     def extract_destination(self, calling_points, destination_crs):
         return next(point for point in calling_points if point["crs"] == destination_crs)
 
+    def extract_platform(self, service_data):
+        return service_data['platform'] if service_data['platform'] is not None else ""
+
     def get_arrival_time(self, service_data, destination_crs):
         calling_points = self.extract_calling_points(service_data);
         destination = self.extract_destination(calling_points, destination_crs)
@@ -46,9 +49,6 @@ class ServiceBuilder():
 
         service['isCancelled'] = 0 if service_data['isCancelled'] is None else 1
 
-        if service_data['platform'] is not None:
-            service['platform'] = service_data['platform']
-        else:
-            service['platform'] = ""
+        service['platform'] = self.extract_platform(service_data)
 
         return service

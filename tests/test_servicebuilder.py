@@ -80,6 +80,15 @@ class TestServiceBuilder(unittest.TestCase):
         calling_points = self.builder.extract_calling_points(service_data)
         self.assertEqual(calling_points, "DATA")
 
+    # platform
+    def test_extract_platform_from_service_data(self):
+        platform = self.builder.extract_platform(mock_service_data)
+        self.assertEqual(platform, "1")
+    
+    def test_extract_platform_from_service_missing(self):
+        platform = self.builder.extract_platform({ 'platform': None})
+        self.assertEqual(platform, "")
+
     # build
     def test_it_has_a_build_function(self):
         assert self.builder.build is not None

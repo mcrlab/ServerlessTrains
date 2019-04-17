@@ -49,7 +49,6 @@ def next(event, context):
 def iot(event, context):
     response = {}
     try:
-        station_list = StationList()
         service = DarwinService(WSDL, token)
         number_of_departures = 1
 
@@ -100,7 +99,8 @@ def spread(event, context):
                     "o" : departure['origin']['crs'],
                     "d" : departure['destination']['crs'],
                     "s" : time_to_integer(departure['origin']['scheduled']),
-                    "e" : time_to_integer(departure['origin']['estimated'])
+                    "e" : time_to_integer(departure['origin']['estimated']),
+
                 }
                 data.append(departure);
             
