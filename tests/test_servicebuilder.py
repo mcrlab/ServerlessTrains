@@ -2,6 +2,7 @@ from lib.servicebuilder import ServiceBuilder
 from lib.stationlist import StationList
 import unittest
 from unittest.mock import patch, call
+import pytest
 
 mock_service_data = {
     "serviceID": "SERVICE_ID",
@@ -52,6 +53,44 @@ class TestServiceBuilder(unittest.TestCase):
         service = self.builder.build(mock_service_data, self.from_crs, self.to_crs)
         self.assertEqual(service['id'], "SERVICE_ID")
     
+
+    # calculate_estimated_time
+    def test_if_etd_is_on_time_then_etd_should_be_set_to_std(self):
+        etd = "On time"
+        std = "10:30"
+        calculatedEtd = self.builder.calculate_estimated_time(etd, std)
+        self.assertEqual(calculatedEtd, std)
+
+    def test_if_etd_is_delayed_then_etd_should_remain_unchanged(self):
+        etd = "10:40"
+        std = "10:30"
+        calculatedEtd = self.builder.calculate_estimated_time(etd, std)
+        self.assertEqual(calculatedEtd, etd)
+
+    # extract destination
+    def test_extract_destination_should_match_on_the_destination_crs(self):
+        calling_points = [ { "crs" : "ABC", "name": "test" }, ]
+        destination_crs = "ABC"
+        destination = self.builder.extract_destination(calling_points, destination_crs)
+        self.assertEqual(destination['name'], "test")
+
+
+    def test_get_calling_points_should_raise_exception_if_missing_calling_points(self):
+        with pytest.raises(Exception) as e_info:
+            service_data = {}
+            self.builder.extract_calling_points(service_data)
+    
+    def test_get_calling_points_should_extract_calling_point_data_from_dictionary(self):
+        service_data = {
+            'subsequentCallingPoints': { 
+                'callingPointList':[{'callingPoint':"DATA"}]
+                }
+            }
+        calling_points = self.builder.extract_calling_points(service_data)
+        self.assertEqual(calling_points, "DATA")
+
+
+
     # origin
     def test_build_should_return_a_dictionary_with_an_origin(self):
         service = self.builder.build(mock_service_data, self.from_crs, self.to_crs)
