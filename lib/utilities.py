@@ -1,9 +1,6 @@
-def calculate_estimated_time(estimated, scheduled):
-    if(estimated == "On time"):
-        return scheduled
-    else:
-        return estimated
 
+DELAYED = -1
+CANCELLED = -2
 
 def extract_crs(event):
     try:
@@ -30,6 +27,16 @@ def build_response_object(status_code, body):
     return response
 
 def time_to_integer(time_string):
-    hour, minute = time_string.split(":")
-    time_int = int(hour) * 60 + int(minute)
-    return time_int
+    try:
+        if time_string == 'Cancelled':
+            time_int = CANCELLED
+        elif time_string == 'Delayed':
+            time_int = DELAYED
+        else:
+            hour, minute = time_string.split(":")
+            time_int = int(hour) * 60 + int(minute)
+    except Exception:
+        time_int = -1
+    finally:
+
+        return time_int

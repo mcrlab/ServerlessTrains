@@ -45,6 +45,17 @@ class TestUtilities(unittest.TestCase):
         expected = 90
         self.assertEqual(time_integer, expected)
 
+    def test_time_to_integer_delayed(self):
+        time_string = "Delayed"
+        time_integer = time_to_integer(time_string)
+        expected = -1
+        self.assertEqual(time_integer, expected)
+    
+    def test_time_to_integer_cancelled(self):
+        time_string = "Cancelled"
+        time_integer = time_to_integer(time_string)
+        expected = -2
+        self.assertEqual(time_integer, expected)
 
 if __name__ == '__main__':
     unittest.main()
