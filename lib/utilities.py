@@ -38,5 +38,4 @@ def time_to_integer(time_string):
     except Exception:
         time_int = -1
     finally:
-
         return time_int

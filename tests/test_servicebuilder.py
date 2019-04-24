@@ -80,6 +80,26 @@ class TestServiceBuilder(unittest.TestCase):
         calling_points = self.builder.extract_calling_points(service_data)
         self.assertEqual(calling_points, "DATA")
 
+    # get arrival time
+    def test_get_arrival_time_calls_extract_calling_points(self):
+
+        calling_points = [{
+                'locationName' :'TestStation',
+                'crs': 'NMC',
+                'st': '10:27',
+                'et': 'On time',
+                'at': None,
+                'isCancelled': None
+            }]
+
+        patchee = patch.object(self.builder,'extract_calling_points', return_value=calling_points)
+        mock_extract_calling_points = patchee.start()
+        
+        self.builder.get_something(mock_service_data, self.from_crs)
+        mock_extract_calling_points.assert_has_calls([call(mock_service_data)])
+
+
+
     # platform
     def test_extract_platform_from_service_data(self):
         platform = self.builder.extract_platform(mock_service_data)
