@@ -1,11 +1,18 @@
-from handler import iot
 from handler import next
 from handler import spread
 import os
 
-WSDL = os.environ['WSDL']
-token = os.environ['DARWIN_TOKEN']
-
+event = {
+    "pathParameters": {
+        "from": "MAN",
+        "to" : "NMC"
+    }
+}
+print("-----")
+result = next(event, False)
+print(result)
+print("-----")
 event = { 'body' : '{ "from": ["DON"], "to": ["HUL"], "limit":2}' };
 result = spread(event, False)
+
 print(result)

@@ -4,6 +4,7 @@ from lib.darwinservice import DarwinService
 from lib.utilities import extract_crs
 from lib.utilities import build_response_object
 from lib.utilities import time_to_integer
+from lib.encoders import ServiceListEncoder
 
 import json
 import os
@@ -31,46 +32,20 @@ def next(event, context):
         from_crs, to_crs = extract_crs(event)
         
         departures = TrainApp(service).next_departures(from_crs, to_crs, number_of_departures)
-        data = {
-            "departures": departures
+ 
+        body = {
+            "departures" : ServiceListEncoder().to_json(departures)
         }
 
-        body = json.dumps(data)
-        response = build_response_object(200, body);
+        response = build_response_object(200, body)
 
     except Exception as e:
-        body = str(e)
-        response = build_response_object(500, body);
-
-    finally:
-        return response
-
-
-def iot(event, context):
-    response = {}
-    try:
-        service = DarwinService(WSDL, token)
-        number_of_departures = 1
-
-        from_crs, to_crs = extract_crs(event)
-
-        trains = TrainApp(service).next_departures(from_crs, to_crs, number_of_departures)
-
-        if len(trains) > 0:
-            etd = trains[0]['origin']['estimated']
-            time = time_to_integer(etd)
-        else:
-            time = ""
-
-        response = build_response_object(200, time)
-
-    except Exception as e:
-        print(e)
         body = str(e)
         response = build_response_object(500, body)
 
     finally:
         return response
+
 
 def spread(event, context):
     try:
@@ -79,11 +54,12 @@ def spread(event, context):
         app = TrainApp(service)
         body = event['body']
         data = json.loads(body)
-        departures = []
         number_of_departures = data['limit']
         if number_of_departures == 0:
             raise Exception("No limit specified")
 
+        departures = []
+        
         for origin in data['from']:
             for destination in data['to']:
                 new_departures_data = app.next_departures(origin, destination, number_of_departures)
@@ -96,14 +72,13 @@ def spread(event, context):
         for index, departure in enumerate(sorted_departures):
             if index < number_of_departures:
                 departure = {
-                    "o" : departure['origin']['crs'],
-                    "d" : departure['destination']['crs'],
-                    "s" : time_to_integer(departure['origin']['scheduled']),
-                    "e" : time_to_integer(departure['origin']['estimated']),
-
+                    "o" : departure.origin.crs,
+                    "d" : departure.destination.crs,
+                    "s" : departure.scheduled_departure_time(),
+                    "e" : departure.estimated_departure_time(),
                 }
-                data.append(departure);
-            
+                data.append(departure)
+
         response = build_response_object(200, json.dumps(data))
     except Exception as e:
         body = str(e)
