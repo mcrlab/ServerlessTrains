@@ -53,7 +53,7 @@ def spread(event, context):
         app = TrainApp(service)
         body = event['body']
         data = json.loads(body)
-        number_of_departures = data['limit']
+        number_of_departures = int(data['limit'])
         if number_of_departures == 0:
             raise Exception("No limit specified")
 
@@ -68,7 +68,8 @@ def spread(event, context):
 
         data = SimpleEncoder().to_json(sorted_departures)
 
-        response = build_response_object(200, json.dumps(data))
+
+        response = build_response_object(200, json.dumps(data[0:number_of_departures]))
     except Exception as e:
         body = str(e)
         response = build_response_object(500, body)

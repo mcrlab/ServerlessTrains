@@ -1,18 +1,22 @@
-from handler import next
-from handler import spread
-import os
+from handler import next, spread
 
-event = {
-    "pathParameters": {
-        "from": "MAN",
-        "to" : "NMC"
+def test_next():
+    event = {
+        "pathParameters": {
+            "from": "MAN",
+            "to" : "NMC"
+        }
     }
-}
-print("-----")
-result = next(event, False)
-print(result)
-print("-----")
-event = { 'body' : '{ "from": ["DON"], "to": ["HUL"], "limit":2}' };
-result = spread(event, False)
+    print("-----")
+    result = next(event, False)
+    print(result)
 
-print(result)
+def test_spread():
+    print("-----")
+    event = { 'body' : '{ "from": ["NMC", "NMN"], "to": ["MAN"], "limit":2}' };
+    result = spread(event, False)
+
+    print(result)
+
+test_next()
+test_spread()
