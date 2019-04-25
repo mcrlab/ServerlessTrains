@@ -3,7 +3,6 @@ from lib.stationlist import StationList
 from lib.darwinservice import DarwinService
 from lib.utilities import extract_crs
 from lib.utilities import build_response_object
-from lib.utilities import time_to_integer
 from lib.encoders import ServiceListEncoder, SimpleEncoder
 
 import json
@@ -19,15 +18,16 @@ def stations(event, context):
         data = stationList.stations()
         body = json.dumps(data)
         response = build_response_object(200, body);
+    
     except Exception as e:
         body = str(e)
         response = build_response_object(500, body)
+
     finally:
         return response
 
 
 def next(event, context):
-    response = {}
     try:
         station_list = StationList()
         number_of_departures = 4
@@ -56,8 +56,8 @@ def spread(event, context):
         body = event['body']
         data = json.loads(body)
 
-        from_crs_list = data['from']
-        to_crs_list = data['to']
+        from_crs_list        = data['from']
+        to_crs_list          = data['to']
         number_of_departures = int(data['limit'])
 
         if not isinstance(from_crs_list, list):
@@ -74,8 +74,10 @@ def spread(event, context):
         data = SimpleEncoder().to_json(departures)
 
         response = build_response_object(200, json.dumps(data[0:number_of_departures]))
+    
     except Exception as e:
         body = str(e)
         response = build_response_object(500, body)
+
     finally:
         return response
