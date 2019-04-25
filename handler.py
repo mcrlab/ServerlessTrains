@@ -32,8 +32,11 @@ def next(event, context):
         from_crs, to_crs = extract_crs(event)
         
         departures = TrainApp(service).next_departures(from_crs, to_crs, number_of_departures)
-    
-        body = json.dumps(departures, cls=ServiceListEncoder)
+ 
+        body = {
+            "departures" : ServiceListEncoder().to_json(departures)
+        }
+
         response = build_response_object(200, body)
 
     except Exception as e:
@@ -71,8 +74,8 @@ def spread(event, context):
                 departure = {
                     "o" : departure.origin.crs,
                     "d" : departure.destination.crs,
-                    "s" : time_to_integer(departure.origin.time.scheduled),
-                    "e" : time_to_integer(departure.origin.time.estimated),
+                    "s" : departure.scheduled_departure_time(),
+                    "e" : departure.estimated_departure_time(),
                 }
                 data.append(departure)
 

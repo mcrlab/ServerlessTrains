@@ -1,5 +1,5 @@
 from lib.stationlist import StationList
-from lib.train import Train, Stop, Time
+from lib.train import Train, Stop
 from lib.utilities import time_to_integer
 
 class ServiceBuilder():
@@ -27,9 +27,6 @@ class ServiceBuilder():
     def extract_cancelled(self, cancelled):
         return 0 if cancelled is None else 1
 
-    def get_something(self, service_data, destination_crs):
-        calling_points = self.extract_calling_points(service_data);
-
     def get_arrival_time(self, service_data, destination_crs):
         calling_points = self.extract_calling_points(service_data);
         destination = self.extract_destination(calling_points, destination_crs)
@@ -46,7 +43,8 @@ class ServiceBuilder():
 
         origin = Stop(from_crs, 
                         station_list.get_station_name(from_crs),
-                        Time(scheduled_departure_time, estimated_departure_time)
+                        scheduled_departure_time, 
+                        estimated_departure_time
                       )
 
 
@@ -59,7 +57,8 @@ class ServiceBuilder():
 
         destination = Stop(to_crs, 
                         station_list.get_station_name(to_crs),
-                        Time(time_to_integer(scheduled_time), time_to_integer(estimated_time))
+                        time_to_integer(scheduled_time), 
+                        time_to_integer(estimated_time)
                       )
 
         train = Train(
@@ -70,24 +69,3 @@ class ServiceBuilder():
                     True if service_data['isCancelled'] is None else False
                 )
         return train
-
-    def build(self, service_data, from_crs, to_crs):
-        station_list = StationList()
-        service = {}
-        service['id'] = service_data['serviceID']
-        service['origin'] = {}
-        service['origin']['crs'] = from_crs
-        service['origin']['name'] = station_list.get_station_name(from_crs)
-        service['origin']['scheduled'] = service_data['std']
-        service['origin']['estimated'] = self.calculate_estimated_time(service_data['etd'], service_data['std'])
-
-        service['destination'] = {}
-        service['destination']['crs'] = to_crs
-        service['destination']['name'] = station_list.get_station_name(to_crs)
-        service['destination']['scheduled'], service['destination']['estimated'] = self.get_arrival_time(service_data, to_crs)
-
-        service['isCancelled'] = self.extract_cancelled(service_data['isCancelled'])
-
-        service['platform'] = self.extract_platform(service_data)
-
-        return service
