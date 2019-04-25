@@ -19,9 +19,9 @@ class ServiceListEncoder():
                 },
                 "destination" : {
                     "crs" : service.destination.crs,
-                    "name": service.origin.name,
+                    "name": service.destination.name,
                     "scheduled": self.format_time(service.scheduled_arrival_time()),
-                    "estimated": self.format_time(service.scheduled_arrival_time())
+                    "estimated": self.format_time(service.estimated_arrival_time())
                 },
                 "isCancelled": 0,
                 "platform": service.platform
