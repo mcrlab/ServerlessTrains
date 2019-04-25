@@ -6,9 +6,9 @@ class ServiceListEncoder():
         hours = int((time - minutes) / 60)
         return '{:02d}:{:02d}'.format(hours, minutes)  
 
-    def to_json(self, service_list):
+    def to_json(self, services):
         data = []
-        for service in service_list:
+        for service in services:
             train = {
                 "id": service.id,
                 "origin" : {
@@ -27,4 +27,18 @@ class ServiceListEncoder():
                 "platform": service.platform
             }
             data.append(train)
+        return data
+
+class SimpleEncoder():
+    def to_json(self, services):
+        data = [];
+
+        for index, service in enumerate(services):
+            service = {
+                "o" : service.origin.crs,
+                "d" : service.destination.crs,
+                "s" : service.scheduled_departure_time(),
+                "e" : service.estimated_departure_time(),
+            }
+            data.append(service)
         return data

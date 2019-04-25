@@ -4,7 +4,7 @@ from lib.darwinservice import DarwinService
 from lib.utilities import extract_crs
 from lib.utilities import build_response_object
 from lib.utilities import time_to_integer
-from lib.encoders import ServiceListEncoder
+from lib.encoders import ServiceListEncoder, SimpleEncoder
 
 import json
 import os
@@ -31,6 +31,7 @@ def next(event, context):
         from_crs, to_crs = extract_crs(event)
         print("Searching for trains from {} to {}".format(from_crs, to_crs))
         departures = TrainApp(service).next_departures(from_crs, to_crs, number_of_departures)
+
         data = {
             "departures" : ServiceListEncoder().to_json(departures)
         }
@@ -65,17 +66,7 @@ def spread(event, context):
         
         sorted_departures = app.sort_departures(departures)
 
-        data = [];
-
-        for index, departure in enumerate(sorted_departures):
-            if index < number_of_departures:
-                departure = {
-                    "o" : departure.origin.crs,
-                    "d" : departure.destination.crs,
-                    "s" : departure.scheduled_departure_time(),
-                    "e" : departure.estimated_departure_time(),
-                }
-                data.append(departure)
+        data = SimpleEncoder().to_json(sorted_departures)
 
         response = build_response_object(200, json.dumps(data))
     except Exception as e:
