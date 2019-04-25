@@ -28,16 +28,14 @@ def next(event, context):
         station_list = StationList()
         number_of_departures = 4
         service = DarwinService(WSDL, token)
-
         from_crs, to_crs = extract_crs(event)
-        
+        print("Searching for trains from {} to {}".format(from_crs, to_crs))
         departures = TrainApp(service).next_departures(from_crs, to_crs, number_of_departures)
- 
-        body = {
+        data = {
             "departures" : ServiceListEncoder().to_json(departures)
         }
 
-        response = build_response_object(200, body)
+        response = build_response_object(200, json.dumps(data))
 
     except Exception as e:
         body = str(e)
