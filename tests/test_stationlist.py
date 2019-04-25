@@ -2,7 +2,7 @@ import unittest
 from lib.stationlist import StationList
 from unittest.mock import patch, mock_open
 import json
-from .mock_data import mock_locations
+from tests.data.mock_data import mock_locations
   
 class TestStationList(unittest.TestCase):
     
