@@ -66,6 +66,6 @@ class ServiceBuilder():
                     origin,
                     destination,
                     self.extract_platform(service_data),
-                    True if service_data['isCancelled'] is None else False
+                    False if service_data['isCancelled'] is None else True
                 )
         return train

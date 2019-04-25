@@ -23,7 +23,7 @@ class ServiceListEncoder():
                     "scheduled": self.format_time(service.scheduled_arrival_time()),
                     "estimated": self.format_time(service.estimated_arrival_time())
                 },
-                "isCancelled": 0,
+                "isCancelled": service.is_cancelled(),
                 "platform": service.platform
             }
             data.append(train)
