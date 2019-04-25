@@ -25,3 +25,14 @@ class TrainApp:
                 departures.append(train_service)
 
         return departures
+
+    def multiple_departures(self, from_crs_list, to_crs_list):
+        departures = []
+        
+        for origin in from_crs_list:
+            for destination in to_crs_list:
+                new_departures_data = self.next_departures(origin, destination, 4)
+                departures = departures + new_departures_data
+        
+        sorted_departures = self.sort_departures(departures)
+        return sorted_departures

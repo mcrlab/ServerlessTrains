@@ -14,12 +14,16 @@ token = os.environ['DARWIN_TOKEN']
 
 
 def stations(event, context):
-
-    stationList = StationList()
-    data = stationList.stations()
-    body = json.dumps(data)
-    response = build_response_object(200, body);
-    return response
+    try:
+        stationList = StationList()
+        data = stationList.stations()
+        body = json.dumps(data)
+        response = build_response_object(200, body);
+    except Exception as e:
+        body = str(e)
+        response = build_response_object(500, body)
+    finally:
+        return response
 
 
 def next(event, context):
@@ -29,7 +33,7 @@ def next(event, context):
         number_of_departures = 4
         service = DarwinService(WSDL, token)
         from_crs, to_crs = extract_crs(event)
-        print("Searching for trains from {} to {}".format(from_crs, to_crs))
+
         departures = TrainApp(service).next_departures(from_crs, to_crs, number_of_departures)
 
         data = {
@@ -48,26 +52,26 @@ def next(event, context):
 
 def spread(event, context):
     try:
-        
         service = DarwinService(WSDL, token)
-        app = TrainApp(service)
         body = event['body']
         data = json.loads(body)
+
+        from_crs_list = data['from']
+        to_crs_list = data['to']
         number_of_departures = int(data['limit'])
+
+        if not isinstance(from_crs_list, list):
+            raise Exception("From CRS is not a list")
+
+        if not isinstance(to_crs_list, list):
+            raise Exception("To CRS is not a list")
+
         if number_of_departures == 0:
             raise Exception("No limit specified")
 
-        departures = []
-        
-        for origin in data['from']:
-            for destination in data['to']:
-                new_departures_data = app.next_departures(origin, destination, number_of_departures)
-                departures = departures + new_departures_data
-        
-        sorted_departures = app.sort_departures(departures)
+        departures = TrainApp(service).multiple_departures(from_crs_list, to_crs_list)
 
-        data = SimpleEncoder().to_json(sorted_departures)
-
+        data = SimpleEncoder().to_json(departures)
 
         response = build_response_object(200, json.dumps(data[0:number_of_departures]))
     except Exception as e:
