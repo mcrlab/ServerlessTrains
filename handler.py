@@ -26,10 +26,24 @@ def stations(event, context):
     finally:
         return response
 
+def iot(event, context):
+    try:
+        number_of_departures = 1
+        service = DarwinService(WSDL, token)
+        from_crs, to_crs = extract_crs(event)
+        departures = TrainApp(service).next_departures(from_crs, to_crs, number_of_departures)
+        if(len(departures) > 0):
+            response = build_response_object(200, departures[0].estimated_departure_time())
+        else:
+            response = build_response_object(200, -1)
+    except Exception as e:
+        body = str(e)
+        response = build_response_object(500, body)
+    finally:
+        return response
 
 def next(event, context):
     try:
-        station_list = StationList()
         number_of_departures = 4
         service = DarwinService(WSDL, token)
         from_crs, to_crs = extract_crs(event)

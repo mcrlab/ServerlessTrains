@@ -1,4 +1,4 @@
-from handler import next, spread
+from handler import next, spread, iot
 
 def test_next():
     event = {
@@ -18,5 +18,17 @@ def test_spread():
 
     print(result)
 
+def test_iot():
+    event = {
+        "pathParameters": {
+            "from": "MAN",
+            "to" : "NMC"
+        }
+    }
+    print("-----")
+    result = iot(event, False)
+    print(result)
+
+test_iot()
 test_next()
 test_spread()

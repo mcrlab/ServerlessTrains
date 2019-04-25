@@ -17,6 +17,19 @@ functions:
           method: get
           cors: true
 
+  iot:
+    handler: handler.iot
+    events:
+      - http:
+          path: iot/{from}/{to}
+          method: get
+          cors: true
+          request:
+            parameters:
+               paths:
+                 from: true
+                 to: true
+
   next:
     handler: handler.next
     events:
