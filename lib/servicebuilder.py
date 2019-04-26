@@ -3,9 +3,6 @@ from lib.train import Train, Stop
 from lib.utilities import time_to_integer
 
 class ServiceBuilder():
-    def __init__(self):
-        pass
-
     def calculate_estimated_time(self, estimated, scheduled):
         if(estimated == "On time"):
             return scheduled
@@ -25,7 +22,7 @@ class ServiceBuilder():
         return service_data['platform'] if service_data['platform'] is not None else ""
 
     def extract_cancelled(self, cancelled):
-        return 0 if cancelled is None else 1
+        return False if cancelled is None else True
 
     def get_arrival_time(self, service_data, destination_crs):
         calling_points = self.extract_calling_points(service_data);
@@ -61,11 +58,14 @@ class ServiceBuilder():
                         time_to_integer(estimated_time)
                       )
 
+        platform = self.extract_platform(service_data)
+        is_cancelled = self.extract_cancelled(service_data['isCancelled'])
+        
         train = Train(
                     service_data['serviceID'],
                     origin,
                     destination,
-                    self.extract_platform(service_data),
-                    False if service_data['isCancelled'] is None else True
+                    platform,
+                    is_cancelled
                 )
         return train
