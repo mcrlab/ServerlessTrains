@@ -1,17 +1,22 @@
 from handler import next, spread, iot
 
 def test_next():
+
     event = {
         "pathParameters": {
-            "from": "MAN",
-            "to" : "NMC"
+            "from": "NMC",
+            "to" : "MAN"
         }
     }
+    print("-----")
+    print("testing next")
     print("-----")
     result = next(event, False)
     print(result)
 
 def test_spread():
+    print("-----")
+    print("testing multiple")
     print("-----")
     event = { 'body' : '{ "from": ["NMC", "NMN"], "to": ["MAN"], "limit":2}' };
     result = spread(event, False)
@@ -21,10 +26,12 @@ def test_spread():
 def test_iot():
     event = {
         "pathParameters": {
-            "from": "MAN",
-            "to" : "NMC"
+            "from": "NMC",
+            "to" : "MAN"
         }
     }
+    print("-----")
+    print("testing iot")
     print("-----")
     result = iot(event, False)
     print(result)

@@ -22,7 +22,10 @@ class DarwinService():
                                                             timeWindow=120,
                                                             _soapheaders={"AccessToken":self.token})
             
-            return response
+            service_list = []
+            if response.trainServices is not None:
+                service_list = response.trainServices.service
+            return service_list
 
         except(zeep.exceptions.Fault):
             raise Exception("Failed to make request to Darwin API")

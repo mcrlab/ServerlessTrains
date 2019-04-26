@@ -15,14 +15,12 @@ class TrainApp:
         if not station_list.validate_crs(from_crs) or not station_list.validate_crs(to_crs):
             raise Exception("CRS code is invalid")
 
+        service_list = self.darwin_service.load_departures(from_crs, to_crs, number_of_departures)
         departures = []
 
-        response = self.darwin_service.load_departures(from_crs, to_crs, number_of_departures)
-  
-        if response.trainServices is not None:
-            for service_data in response.trainServices.service:
-                train_service = ServiceBuilder().build_train(service_data, from_crs, to_crs)
-                departures.append(train_service)
+        for service in service_list:
+            train_service = ServiceBuilder().build_train(service, from_crs, to_crs)
+            departures.append(train_service)
 
         return departures
 

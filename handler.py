@@ -1,6 +1,8 @@
 from lib.trainapp import TrainApp
 from lib.stationlist import StationList
 from lib.darwinservice import DarwinService
+from mocks.mock_darwin_service import MockDarwinService
+
 from lib.utilities import extract_crs
 from lib.utilities import build_response_object
 from lib.encoders import ServiceListEncoder, SimpleEncoder
@@ -30,6 +32,7 @@ def iot(event, context):
     try:
         number_of_departures = 1
         service = DarwinService(WSDL, token)
+
         from_crs, to_crs = extract_crs(event)
         departures = TrainApp(service).next_departures(from_crs, to_crs, number_of_departures)
         if(len(departures) > 0):
