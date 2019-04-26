@@ -12,6 +12,15 @@ class TestTrain(unittest.TestCase):
 
     def test_it_can_be_initialised(self):
         assert Train is not None
+
+    def test_scheduled_departure_time_from_origin(self):
+        origin = Stop("NMC", "New Mills Central", 100, 200)
+        destination = Stop("MAN", "Manchester", 200, 300)
+        train = Train("ID", origin, destination, 1, False)
+        
+        departure_time = train.scheduled_departure_time()
+
+        self.assertEqual(departure_time, 100) 
     
 class TestStop(unittest.TestCase):
     def test_it_can_be_initialised(self):
