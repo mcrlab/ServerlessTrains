@@ -1,4 +1,4 @@
-from .mock import mock_service
+from .mock import mock_ontime_service
 
 class MockDarwinService():
     def __init__(self, wsdl, token):
@@ -8,5 +8,5 @@ class MockDarwinService():
 
     def load_departures(self, from_crs, to_crs, number_of_departures):
         mock_services = []
-        mock_services.append(mock_service)
+        mock_services.append(mock_ontime_service)
         return mock_services
