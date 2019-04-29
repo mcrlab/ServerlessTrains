@@ -11,8 +11,8 @@ class ServiceBuilder():
 
     def extract_calling_points(self, service_data):
         try:
-            return service_data['subsequentCallingPoints']['callingPointList'][0]['callingPoint'];
-        except KeyError as e:
+            return service_data['subsequentCallingPoints']['callingPointList'][0]['callingPoint']
+        except KeyError:
             raise Exception("Failed to get calling points")
 
     def extract_destination(self, calling_points, destination_crs):
@@ -25,7 +25,7 @@ class ServiceBuilder():
         return False if cancelled is None else True
 
     def get_arrival_time(self, service_data, destination_crs):
-        calling_points = self.extract_calling_points(service_data);
+        calling_points = self.extract_calling_points(service_data)
         destination = self.extract_destination(calling_points, destination_crs)
         scheduled_time = destination['st']
         estimated_time = destination['et']

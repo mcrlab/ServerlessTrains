@@ -67,7 +67,7 @@ class TestServiceBuilder(unittest.TestCase):
 
     # calling points
     def test_get_calling_points_should_raise_exception_if_missing_calling_points(self):
-        with pytest.raises(Exception) as e_info:
+        with pytest.raises(Exception):
             service_data = {}
             self.builder.extract_calling_points(service_data)
     
