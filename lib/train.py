@@ -1,11 +1,12 @@
 
 class Train():
-    def __init__(self,id, origin, destination, platform, cancelled = False):
+    def __init__(self,id, origin, destination, platform, cancelled = False, delayed = False):
         self.id = id
         self.origin = origin
         self.destination = destination
         self.platform = platform
-        self.cancelled = cancelled
+        self._cancelled = cancelled
+        self._delayed = delayed
 
     def __str__(self):
         return self.id
@@ -22,8 +23,11 @@ class Train():
     def estimated_arrival_time(self):
         return self.destination.estimated_time
 
+    def is_delayed(self):
+        return self._delayed
+
     def is_cancelled(self):
-        return self.cancelled
+        return self._cancelled
     
 class Stop():
     def __init__(self, crs, name, scheduled_time, estimated_time):

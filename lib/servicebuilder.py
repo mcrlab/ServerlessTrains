@@ -21,6 +21,9 @@ class ServiceBuilder():
     def extract_platform(self, service_data):
         return service_data['platform'] if service_data['platform'] is not None else ""
 
+    def extract_delayed(self, std):
+        return False
+
     def extract_cancelled(self, cancelled):
         return False if cancelled is None else True
 
@@ -60,12 +63,14 @@ class ServiceBuilder():
 
         platform = self.extract_platform(service_data)
         is_cancelled = self.extract_cancelled(service_data['isCancelled'])
-        
+        is_delayed = self.extract_delayed(service_data['std'])
+
         train = Train(
                     service_data['serviceID'],
                     origin,
                     destination,
                     platform,
-                    is_cancelled
+                    is_cancelled,
+                    is_delayed
                 )
         return train

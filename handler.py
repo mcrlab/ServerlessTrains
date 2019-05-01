@@ -91,7 +91,41 @@ def spread(event, context):
         data = SimpleEncoder().to_json(departures)
 
         response = build_response_object(200, json.dumps(data[0:number_of_departures]))
-    
+    except Exception as e:
+        body = str(e)
+        response = build_response_object(500, body)
+
+    finally:
+        return response
+
+def multiple(event, context):
+    try:
+        service = DarwinService(WSDL, token)
+        body = event['body']
+        data = json.loads(body)
+
+        from_crs_list        = data['from']
+        to_crs_list          = data['to']
+        number_of_departures = int(data['limit'])
+
+        if not isinstance(from_crs_list, list):
+            raise Exception("From CRS is not a list")
+
+        if not isinstance(to_crs_list, list):
+            raise Exception("To CRS is not a list")
+
+        if number_of_departures == 0:
+            raise Exception("No limit specified")
+
+        departures = TrainApp(service).multiple_departures(from_crs_list, to_crs_list)
+
+        data = {
+            "departures" : ServiceListEncoder().to_json(departures[0:number_of_departures])
+        }
+
+        response = build_response_object(200, json.dumps(data))
+
+        return response
     except Exception as e:
         body = str(e)
         response = build_response_object(500, body)

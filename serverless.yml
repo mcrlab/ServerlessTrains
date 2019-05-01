@@ -43,6 +43,14 @@ functions:
                  from: true
                  to: true
   
+  multiple:
+    handler: handler.multiple
+    events:
+      - http:
+          path: departures
+          method: post
+          cors: true
+
   spread:
     handler: handler.spread
     events:
