@@ -23,4 +23,5 @@ class StationList:
 
     def stations(self):
         stations = self.load_stations()
+        stations = sorted(stations, key = lambda i: i['name']) 
         return stations
