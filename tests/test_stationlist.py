@@ -19,13 +19,6 @@ class TestStationList(unittest.TestCase):
         mock_load_stations.assert_called()
 
     @patch.object(StationList, 'load_stations')
-    def test_get_stations_should_return_a_dictionary_of_locations(self, mock_load_stations):
-        mock_load_stations.return_value = json.loads(mock_locations)
-        station_list = StationList()
-        assert len(station_list.stations()) == 1
-
-
-    @patch.object(StationList, 'load_stations')
     def test_get_station_name_should_return_a_station_name_from_a_crs(self, mock_load_stations):
         mock_load_stations.return_value = json.loads(mock_locations)['locations']
         station_list = StationList()
