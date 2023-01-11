@@ -8,7 +8,7 @@ class TrainApp:
         return
 
     def sort_departures(self, departures):
-        return sorted(departures, key=lambda k:k.origin.scheduled_time)
+        return sorted(departures, key=lambda k:k.origin.time.scheduled)
 
     def next_departures(self, from_crs, to_crs, number_of_departures):
         station_list = StationList()
@@ -24,13 +24,14 @@ class TrainApp:
 
         return departures
 
-    def multiple_departures(self, from_crs_list, to_crs_list):
+    def multiple_departures(self, routes):
         departures = []
         
-        for origin in from_crs_list:
-            for destination in to_crs_list:
-                new_departures_data = self.next_departures(origin, destination, 4)
-                departures = departures + new_departures_data
+        for route in routes:
+            origin = route['from']
+            destination = route['to']
+            new_departures_data = self.next_departures(origin, destination, 4)
+            departures = departures + new_departures_data
         
         sorted_departures = self.sort_departures(departures)
         return sorted_departures

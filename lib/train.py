@@ -12,13 +12,13 @@ class Train():
         return self.id
 
     def scheduled_departure_time(self):
-        return self.origin.scheduled_time
+        return self.origin.time.scheduled
 
     def estimated_departure_time(self):
-        return self.origin.estimated_time
+        return self.origin.time.estimated
 
     def scheduled_arrival_time(self):
-        return self.destination.scheduled_time
+        return self.destination.time.scheduled
 
     def estimated_arrival_time(self):
         return self.destination.estimated_time
@@ -30,14 +30,21 @@ class Train():
         return self._cancelled
     
 class Stop():
-    def __init__(self, crs, name, scheduled_time, estimated_time):
+    def __init__(self, station, time):
+        self.station = station
+        self.time = time
+
+class Station():
+    def __init__(self, crs, name):
         self.crs = crs
         self.name = name
-        self.scheduled_time = scheduled_time
-        self.estimated_time = estimated_time
 
     def __str__(self):
         return self.name
 
+class Time():
+    def __init__(self, scheduled, estimated):
+        self.scheduled = scheduled
+        self.estimated = estimated
 
     

@@ -80,4 +80,6 @@ package:
   exclude:
   - .circleci/**
   - .coverage
+  - node_modules/**
+  - venv/**
   

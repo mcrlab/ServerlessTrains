@@ -18,7 +18,8 @@ def test_spread():
     print("-----")
     print("testing spread")
     print("-----")
-    event = { 'body' : '{ "from": ["NMC", "NMN"], "to": ["MAN"], "limit":2}' };
+    event = { 'body' : '{ "routes": [{"from": "NMC", "to" : "MAN"}], "limit":2}' };
+
     result = spread(event, False)
 
     print(result)

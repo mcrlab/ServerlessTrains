@@ -3,7 +3,7 @@ from lib.stationlist import StationList
 from lib.darwinservice import DarwinService
 from mocks.mock_darwin_service import MockDarwinService
 
-from lib.utilities import extract_crs
+from lib.utilities import extract_crs, time_to_integer
 from lib.utilities import build_response_object
 from lib.encoders import ServiceListEncoder, SimpleEncoder
 
@@ -36,7 +36,7 @@ def iot(event, context):
         from_crs, to_crs = extract_crs(event)
         departures = TrainApp(service).next_departures(from_crs, to_crs, number_of_departures)
         if(len(departures) > 0):
-            response = build_response_object(200, departures[0].estimated_departure_time())
+            response = build_response_object(200, time_to_integer(departures[0].estimated_departure_time()))
         else:
             response = build_response_object(200, -1)
     except Exception as e:
@@ -56,7 +56,7 @@ def next(event, context):
         data = {
             "departures" : ServiceListEncoder().to_json(departures)
         }
-
+        
         response = build_response_object(200, json.dumps(data))
 
     except Exception as e:
@@ -72,60 +72,25 @@ def spread(event, context):
         service = DarwinService(WSDL, token)
         body = event['body']
         data = json.loads(body)
+        routes = data['routes']
 
-        from_crs_list        = data['from']
-        to_crs_list          = data['to']
         number_of_departures = int(data['limit'])
 
-        if not isinstance(from_crs_list, list):
-            raise Exception("From CRS is not a list")
 
-        if not isinstance(to_crs_list, list):
-            raise Exception("To CRS is not a list")
+        if not isinstance(routes, list):
+            raise Exception("Routes not provided")
 
         if number_of_departures == 0:
             raise Exception("No limit specified")
 
-        departures = TrainApp(service).multiple_departures(from_crs_list, to_crs_list)
+        departures = TrainApp(service).multiple_departures(routes)
 
-        data = SimpleEncoder().to_json(departures)
+        data = ServiceListEncoder().to_json(departures)
 
-        response = build_response_object(200, json.dumps(data[0:number_of_departures]))
-    except Exception as e:
-        body = str(e)
-        response = build_response_object(500, body)
-
-    finally:
-        return response
-
-def multiple(event, context):
-    try:
-        service = DarwinService(WSDL, token)
-        body = event['body']
-        data = json.loads(body)
-
-        from_crs_list        = data['from']
-        to_crs_list          = data['to']
-        number_of_departures = int(data['limit'])
-
-        if not isinstance(from_crs_list, list):
-            raise Exception("From CRS is not a list")
-
-        if not isinstance(to_crs_list, list):
-            raise Exception("To CRS is not a list")
-
-        if number_of_departures == 0:
-            raise Exception("No limit specified")
-
-        departures = TrainApp(service).multiple_departures(from_crs_list, to_crs_list)
-
-        data = {
-            "departures" : ServiceListEncoder().to_json(departures[0:number_of_departures])
-        }
-
-        response = build_response_object(200, json.dumps(data))
-
-        return response
+        response = build_response_object(200, json.dumps({
+            "departures" : data[0:number_of_departures]
+        }))
+    
     except Exception as e:
         body = str(e)
         response = build_response_object(500, body)

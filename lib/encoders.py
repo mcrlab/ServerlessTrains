@@ -1,3 +1,4 @@
+import json
 
 class ServiceListEncoder():
 
@@ -9,21 +10,19 @@ class ServiceListEncoder():
     def to_json(self, services):
         data = []
         for service in services:
+
             train = {
                 "id": service.id,
                 "origin" : {
-                    "crs" : service.origin.crs,
-                    "name": service.origin.name,
-                    "scheduled": self.format_time(service.scheduled_departure_time()),
-                    "estimated": self.format_time(service.estimated_departure_time())
+                    "station" : service.origin.station.__dict__,
+                    "time": service.origin.time.__dict__
                 },
                 "destination" : {
-                    "crs" : service.destination.crs,
-                    "name": service.destination.name,
-                    "scheduled": self.format_time(service.scheduled_arrival_time()),
-                    "estimated": self.format_time(service.estimated_arrival_time())
+                    "station" : service.destination.station.__dict__,
+                    "time": service.destination.time.__dict__
                 },
                 "isCancelled": service.is_cancelled(),
+                "isDelayed": service.is_delayed(),
                 "platform": service.platform
             }
             data.append(train)
