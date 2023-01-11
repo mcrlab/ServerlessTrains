@@ -1,4 +1,4 @@
-from handler import next, spread, iot, multiple, stations
+from handler import next, spread, iot, stations
 
 def test_next():
 
@@ -37,20 +37,12 @@ def test_iot():
     result = iot(event, False)
     print(result)
 
-def test_multiple():
-    event = { 'body' : '{ "from": ["NMC", "NMN"], "to": ["MAN"], "limit":2}' };
-    print("-----")
-    print("testing multiple")
-    print("-----")
-    result = multiple(event, False)
-    print(result)
-
 def test_stations():
     result = stations({}, False)
     print(result)
 
-test_stations()
+#test_stations()
 #test_iot()
 #test_next()
-#test_spread()
+test_spread()
 #test_multiple()
