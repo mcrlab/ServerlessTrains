@@ -24,30 +24,16 @@ class TestSmoke(unittest.TestCase):
 
     @patch.object(DarwinService, 'load_departures', return_value=list_of_on_time_departures)
     def test_next_endpoint(self, load_departures):
-        event = {
-            "pathParameters": {
-                "from": "NMC",
-                "to" : "MAN"
-            }
-        }
-        expected_json = '{"departures": [{"id": "WizqNi2tAjI+k2qo9FWauA==", "origin": {"crs": "NMC", "name": "New Mills Central", "scheduled": "17:27", "estimated": "17:27"}, "destination": {"crs": "MAN", "name": "Manchester Piccadilly", "scheduled": "17:58", "estimated": "17:58"}, "isCancelled": false, "platform": "2"}]}'
+        event = { "pathParameters": { "from": "NMC", "to" : "MAN" } }
+#        expected_json = '{"departures": [{"id": "WizqNi2tAjI+k2qo9FWauA==", "origin": {"crs": "NMC", "name": "New Mills Central", "scheduled": "17:27", "estimated": "17:27"}, "destination": {"crs": "MAN", "name": "Manchester Piccadilly", "scheduled": "17:58", "estimated": "17:58"}, "isCancelled": false, "platform": "2"}]}'
+        expected_json = '{"departures": [{"id": "WizqNi2tAjI+k2qo9FWauA==", "origin": {"station": {"crs": "NMC", "name": "New Mills Central"}, "time": {"scheduled": "17:27", "estimated": "17:27"}}, "destination": {"station": {"crs": "MAN", "name": "Manchester Piccadilly"}, "time": {"scheduled": "17:58", "estimated": "17:58"}}, "isCancelled": false, "isDelayed": false, "platform": "2"}]}'
         result = next(event, False)   
         self.assertEqual(result['statusCode'], 200)
         self.assertEqual(result['headers']['Access-Control-Allow-Origin'], '*')
         self.assertEqual(result['headers']['Access-Control-Allow-Credentials'], True)
+        print(result['body'])
         self.assertEqual(result['body'],expected_json)
 
-    @pytest.mark.skip(reason="no way of currently testing this")
-    @patch.object(DarwinService, 'load_departures', return_value=list_of_on_time_departures)
-    def test_next_endpoint(self, load_departures):
-        event = { 'body' : '{ "from": ["NMC", "NMN"], "to": ["MAN"], "limit":2}' };
-        expected_json = '[{"o": "NMC", "d": "MAN", "s": 1047, "e": 1047}, {"o": "NMN", "d": "MAN", "s": 1047, "e": 1047}]'        
-        result = spread(event, False)
-
-        self.assertEqual(result['statusCode'], 200)
-        self.assertEqual(result['headers']['Access-Control-Allow-Origin'], '*')
-        self.assertEqual(result['headers']['Access-Control-Allow-Credentials'], True)
-        self.assertEqual(result['body'],expected_json)
 
 if __name__ == '__main__':
     unittest.main()

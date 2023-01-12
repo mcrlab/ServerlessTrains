@@ -21,7 +21,7 @@ class Train():
         return self.destination.time.scheduled
 
     def estimated_arrival_time(self):
-        return self.destination.estimated_time
+        return self.destination.time.estimated
 
     def is_delayed(self):
         return self._delayed
