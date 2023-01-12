@@ -2,15 +2,14 @@
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
-version: 2
+version: '2.1'
+orbs:
+  python: circleci/python@2.1.1
+
 jobs:
   build_and_test:
     working_directory: ~/python-ci
-
-    docker:
-      # specify the version you desire here
-      - image: circleci/python:3.6.2-stretch-browsers
-
+    executor: python/default
     steps:
       - checkout
       - run: sudo pip install -r requirements.txt
@@ -22,10 +21,6 @@ jobs:
 
   deploy:
     working_directory: ~/python-ci
-
-    docker:
-      # specify the version you desire here
-      - image: circleci/python:3.6.2-stretch-browsers
 
     steps:
       - checkout
@@ -61,7 +56,6 @@ jobs:
           command: sls deploy -v
 
 workflows:
-  version: 2
   build_and_test:
     jobs:
       - build_and_test
