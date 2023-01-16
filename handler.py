@@ -7,7 +7,7 @@ from lib.utilities import extract_crs, time_to_integer
 from lib.utilities import build_response_object
 from lib.encoders import ServiceListEncoder, SimpleEncoder
 
-import datetime
+from datetime import datetime
 import json
 import os
 
