@@ -7,6 +7,7 @@ from lib.utilities import extract_crs, time_to_integer
 from lib.utilities import build_response_object
 from lib.encoders import ServiceListEncoder, SimpleEncoder
 
+import datetime
 import json
 import os
 
@@ -74,6 +75,11 @@ def spread(event, context):
         data = json.loads(body)
         routes = data['routes']
 
+        now = datetime.now()
+
+        current_time = now.strftime("%H:%M")
+
+
         number_of_departures = int(data['limit'])
 
 
@@ -88,6 +94,7 @@ def spread(event, context):
         data = ServiceListEncoder().to_json(departures)
 
         response = build_response_object(200, json.dumps({
+            "current_time": current_time,
             "departures" : data[0:number_of_departures]
         }))
     
