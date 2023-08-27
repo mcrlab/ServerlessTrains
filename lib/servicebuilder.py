@@ -21,9 +21,6 @@ class ServiceBuilder():
     def extract_platform(self, service_data):
         return service_data['platform'] if service_data['platform'] is not None else ""
 
-    def extract_delayed(self, std):
-        return False
-
     def extract_cancelled(self, cancelled):
         return False if cancelled is None else True
 
@@ -40,14 +37,13 @@ class ServiceBuilder():
         return scheduled_time, estimated_time
     
     def build_train(self, service_data, from_crs, to_crs):
+        print(service_data)
         station_list = StationList()
 
         scheduled_departure_time = service_data['std']
         estimated_departure_time = self.calculate_estimated_time(service_data['etd'], service_data['std'])
 
-        origin_station = Station(from_crs, 
-                    station_list.get_station_name(from_crs)
-                      )
+        origin_station = Station(from_crs, station_list.get_station_name(from_crs))
 
         departure_time = Time(scheduled_departure_time, estimated_departure_time)
 

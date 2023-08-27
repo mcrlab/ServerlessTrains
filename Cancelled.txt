@@ -1,0 +1,722 @@
+{
+    'sta': None,
+    'eta': None,
+    'std': '16:24',
+    'etd': 'Cancelled',
+    'platform': None,
+    'operator': 'Avanti West Coast',
+    'operatorCode': 'VT',
+    'isCircularRoute': None,
+    'isCancelled': True,
+    'filterLocationCancelled': True,
+    'serviceType': 'train',
+    'length': None,
+    'detachFront': None,
+    'isReverseFormation': None,
+    'cancelReason': 'This train has been cancelled because of a shortage of train crew',
+    'delayReason': None,
+    'serviceID': '5061227MKNSCEN_',
+    'adhocAlerts': None,
+    'rsid': None,
+    'origin': {
+        'location': [
+            {
+                'locationName': 'London Euston',
+                'crs': 'EUS',
+                'via': None,
+                'futureChangeTo': None,
+                'assocIsCancelled': None
+            }
+        ]
+    },
+    'destination': {
+        'location': [
+            {
+                'locationName': 'Manchester Piccadilly',
+                'crs': 'MAN',
+                'via': None,
+                'futureChangeTo': None,
+                'assocIsCancelled': None
+            }
+        ]
+    },
+    'currentOrigins': None,
+    'currentDestinations': None,
+    'formation': None,
+    'previousCallingPoints': None,
+    'subsequentCallingPoints': {
+        'callingPointList': [
+            {
+                'callingPoint': [
+                    {
+                        'locationName': 'Rugby',
+                        'crs': 'RUG',
+                        'st': '16:45',
+                        'et': 'Cancelled',
+                        'at': None,
+                        'isCancelled': None,
+                        'length': None,
+                        'detachFront': None,
+                        'formation': None,
+                        'adhocAlerts': None
+                    },
+                    {
+                        'locationName': 'Stoke-on-Trent',
+                        'crs': 'SOT',
+                        'st': '17:26',
+                        'et': 'Cancelled',
+                        'at': None,
+                        'isCancelled': None,
+                        'length': None,
+                        'detachFront': None,
+                        'formation': None,
+                        'adhocAlerts': None
+                    },
+                    {
+                        'locationName': 'Macclesfield',
+                        'crs': 'MAC',
+                        'st': '17:42',
+                        'et': 'Cancelled',
+                        'at': None,
+                        'isCancelled': None,
+                        'length': None,
+                        'detachFront': None,
+                        'formation': None,
+                        'adhocAlerts': None
+                    },
+                    {
+                        'locationName': 'Stockport',
+                        'crs': 'SPT',
+                        'st': '17:56',
+                        'et': 'Cancelled',
+                        'at': None,
+                        'isCancelled': None,
+                        'length': None,
+                        'detachFront': None,
+                        'formation': None,
+                        'adhocAlerts': None
+                    },
+                    {
+                        'locationName': 'Manchester Piccadilly',
+                        'crs': 'MAN',
+                        'st': '18:05',
+                        'et': 'Cancelled',
+                        'at': None,
+                        'isCancelled': None,
+                        'length': None,
+                        'detachFront': None,
+                        'formation': None,
+                        'adhocAlerts': None
+                    }
+                ],
+                'serviceType': 'train',
+                'serviceChangeRequired': 'false',
+                'assocIsCancelled': 'false'
+            }
+        ]
+    }
+}
+{
+    'sta': None,
+    'eta': None,
+    'std': '17:24',
+    'etd': 'On time',
+    'platform': '6',
+    'operator': 'Avanti West Coast',
+    'operatorCode': 'VT',
+    'isCircularRoute': None,
+    'isCancelled': None,
+    'filterLocationCancelled': None,
+    'serviceType': 'train',
+    'length': None,
+    'detachFront': None,
+    'isReverseFormation': None,
+    'cancelReason': None,
+    'delayReason': None,
+    'serviceID': '5056016MKNSCEN_',
+    'adhocAlerts': None,
+    'rsid': 'VT717000',
+    'origin': {
+        'location': [
+            {
+                'locationName': 'London Euston',
+                'crs': 'EUS',
+                'via': None,
+                'futureChangeTo': None,
+                'assocIsCancelled': None
+            }
+        ]
+    },
+    'destination': {
+        'location': [
+            {
+                'locationName': 'Manchester Piccadilly',
+                'crs': 'MAN',
+                'via': None,
+                'futureChangeTo': None,
+                'assocIsCancelled': None
+            }
+        ]
+    },
+    'currentOrigins': None,
+    'currentDestinations': None,
+    'formation': {
+        'avgLoading': None,
+        'coaches': {
+            'coach': [
+                {
+                    'coachClass': 'Standard',
+                    'toilet': {
+                        '_value_1': 'Standard',
+                        'status': 'InService'
+                    },
+                    'loading': None,
+                    'number': '1'
+                },
+                {
+                    'coachClass': 'Standard',
+                    'toilet': {
+                        '_value_1': 'Accessible',
+                        'status': 'InService'
+                    },
+                    'loading': None,
+                    'number': '2'
+                },
+                {
+                    'coachClass': 'Standard',
+                    'toilet': None,
+                    'loading': None,
+                    'number': '3'
+                },
+                {
+                    'coachClass': 'Standard',
+                    'toilet': {
+                        '_value_1': 'Accessible',
+                        'status': 'InService'
+                    },
+                    'loading': None,
+                    'number': '4'
+                },
+                {
+                    'coachClass': 'Standard',
+                    'toilet': {
+                        '_value_1': 'Standard',
+                        'status': 'InService'
+                    },
+                    'loading': None,
+                    'number': '5'
+                },
+                {
+                    'coachClass': 'First',
+                    'toilet': {
+                        '_value_1': 'Standard',
+                        'status': 'InService'
+                    },
+                    'loading': None,
+                    'number': '6'
+                },
+                {
+                    'coachClass': 'First',
+                    'toilet': {
+                        '_value_1': 'Standard',
+                        'status': 'InService'
+                    },
+                    'loading': None,
+                    'number': '7'
+                },
+                {
+                    'coachClass': 'First',
+                    'toilet': {
+                        '_value_1': 'Accessible',
+                        'status': 'InService'
+                    },
+                    'loading': None,
+                    'number': '8'
+                },
+                {
+                    'coachClass': 'First',
+                    'toilet': None,
+                    'loading': None,
+                    'number': '9'
+                }
+            ]
+        }
+    },
+    'previousCallingPoints': None,
+    'subsequentCallingPoints': {
+        'callingPointList': [
+            {
+                'callingPoint': [
+                    {
+                        'locationName': 'Rugby',
+                        'crs': 'RUG',
+                        'st': '17:45',
+                        'et': 'On time',
+                        'at': None,
+                        'isCancelled': None,
+                        'length': None,
+                        'detachFront': None,
+                        'formation': {
+                            'avgLoading': None,
+                            'coaches': {
+                                'coach': [
+                                    {
+                                        'coachClass': 'Standard',
+                                        'toilet': {
+                                            '_value_1': 'Standard',
+                                            'status': 'InService'
+                                        },
+                                        'loading': None,
+                                        'number': '1'
+                                    },
+                                    {
+                                        'coachClass': 'Standard',
+                                        'toilet': {
+                                            '_value_1': 'Accessible',
+                                            'status': 'InService'
+                                        },
+                                        'loading': None,
+                                        'number': '2'
+                                    },
+                                    {
+                                        'coachClass': 'Standard',
+                                        'toilet': None,
+                                        'loading': None,
+                                        'number': '3'
+                                    },
+                                    {
+                                        'coachClass': 'Standard',
+                                        'toilet': {
+                                            '_value_1': 'Accessible',
+                                            'status': 'InService'
+                                        },
+                                        'loading': None,
+                                        'number': '4'
+                                    },
+                                    {
+                                        'coachClass': 'Standard',
+                                        'toilet': {
+                                            '_value_1': 'Standard',
+                                            'status': 'InService'
+                                        },
+                                        'loading': None,
+                                        'number': '5'
+                                    },
+                                    {
+                                        'coachClass': 'First',
+                                        'toilet': {
+                                            '_value_1': 'Standard',
+                                            'status': 'InService'
+                                        },
+                                        'loading': None,
+                                        'number': '6'
+                                    },
+                                    {
+                                        'coachClass': 'First',
+                                        'toilet': {
+                                            '_value_1': 'Standard',
+                                            'status': 'InService'
+                                        },
+                                        'loading': None,
+                                        'number': '7'
+                                    },
+                                    {
+                                        'coachClass': 'First',
+                                        'toilet': {
+                                            '_value_1': 'Accessible',
+                                            'status': 'InService'
+                                        },
+                                        'loading': None,
+                                        'number': '8'
+                                    },
+                                    {
+                                        'coachClass': 'First',
+                                        'toilet': None,
+                                        'loading': None,
+                                        'number': '9'
+                                    }
+                                ]
+                            }
+                        },
+                        'adhocAlerts': None
+                    },
+                    {
+                        'locationName': 'Stoke-on-Trent',
+                        'crs': 'SOT',
+                        'st': '18:26',
+                        'et': 'On time',
+                        'at': None,
+                        'isCancelled': None,
+                        'length': None,
+                        'detachFront': None,
+                        'formation': {
+                            'avgLoading': None,
+                            'coaches': {
+                                'coach': [
+                                    {
+                                        'coachClass': 'Standard',
+                                        'toilet': {
+                                            '_value_1': 'Standard',
+                                            'status': 'InService'
+                                        },
+                                        'loading': None,
+                                        'number': '1'
+                                    },
+                                    {
+                                        'coachClass': 'Standard',
+                                        'toilet': {
+                                            '_value_1': 'Accessible',
+                                            'status': 'InService'
+                                        },
+                                        'loading': None,
+                                        'number': '2'
+                                    },
+                                    {
+                                        'coachClass': 'Standard',
+                                        'toilet': None,
+                                        'loading': None,
+                                        'number': '3'
+                                    },
+                                    {
+                                        'coachClass': 'Standard',
+                                        'toilet': {
+                                            '_value_1': 'Accessible',
+                                            'status': 'InService'
+                                        },
+                                        'loading': None,
+                                        'number': '4'
+                                    },
+                                    {
+                                        'coachClass': 'Standard',
+                                        'toilet': {
+                                            '_value_1': 'Standard',
+                                            'status': 'InService'
+                                        },
+                                        'loading': None,
+                                        'number': '5'
+                                    },
+                                    {
+                                        'coachClass': 'First',
+                                        'toilet': {
+                                            '_value_1': 'Standard',
+                                            'status': 'InService'
+                                        },
+                                        'loading': None,
+                                        'number': '6'
+                                    },
+                                    {
+                                        'coachClass': 'First',
+                                        'toilet': {
+                                            '_value_1': 'Standard',
+                                            'status': 'InService'
+                                        },
+                                        'loading': None,
+                                        'number': '7'
+                                    },
+                                    {
+                                        'coachClass': 'First',
+                                        'toilet': {
+                                            '_value_1': 'Accessible',
+                                            'status': 'InService'
+                                        },
+                                        'loading': None,
+                                        'number': '8'
+                                    },
+                                    {
+                                        'coachClass': 'First',
+                                        'toilet': None,
+                                        'loading': None,
+                                        'number': '9'
+                                    }
+                                ]
+                            }
+                        },
+                        'adhocAlerts': None
+                    },
+                    {
+                        'locationName': 'Macclesfield',
+                        'crs': 'MAC',
+                        'st': '18:42',
+                        'et': 'On time',
+                        'at': None,
+                        'isCancelled': None,
+                        'length': None,
+                        'detachFront': None,
+                        'formation': {
+                            'avgLoading': None,
+                            'coaches': {
+                                'coach': [
+                                    {
+                                        'coachClass': 'Standard',
+                                        'toilet': {
+                                            '_value_1': 'Standard',
+                                            'status': 'InService'
+                                        },
+                                        'loading': None,
+                                        'number': '1'
+                                    },
+                                    {
+                                        'coachClass': 'Standard',
+                                        'toilet': {
+                                            '_value_1': 'Accessible',
+                                            'status': 'InService'
+                                        },
+                                        'loading': None,
+                                        'number': '2'
+                                    },
+                                    {
+                                        'coachClass': 'Standard',
+                                        'toilet': None,
+                                        'loading': None,
+                                        'number': '3'
+                                    },
+                                    {
+                                        'coachClass': 'Standard',
+                                        'toilet': {
+                                            '_value_1': 'Accessible',
+                                            'status': 'InService'
+                                        },
+                                        'loading': None,
+                                        'number': '4'
+                                    },
+                                    {
+                                        'coachClass': 'Standard',
+                                        'toilet': {
+                                            '_value_1': 'Standard',
+                                            'status': 'InService'
+                                        },
+                                        'loading': None,
+                                        'number': '5'
+                                    },
+                                    {
+                                        'coachClass': 'First',
+                                        'toilet': {
+                                            '_value_1': 'Standard',
+                                            'status': 'InService'
+                                        },
+                                        'loading': None,
+                                        'number': '6'
+                                    },
+                                    {
+                                        'coachClass': 'First',
+                                        'toilet': {
+                                            '_value_1': 'Standard',
+                                            'status': 'InService'
+                                        },
+                                        'loading': None,
+                                        'number': '7'
+                                    },
+                                    {
+                                        'coachClass': 'First',
+                                        'toilet': {
+                                            '_value_1': 'Accessible',
+                                            'status': 'InService'
+                                        },
+                                        'loading': None,
+                                        'number': '8'
+                                    },
+                                    {
+                                        'coachClass': 'First',
+                                        'toilet': None,
+                                        'loading': None,
+                                        'number': '9'
+                                    }
+                                ]
+                            }
+                        },
+                        'adhocAlerts': None
+                    },
+                    {
+                        'locationName': 'Stockport',
+                        'crs': 'SPT',
+                        'st': '18:56',
+                        'et': 'On time',
+                        'at': None,
+                        'isCancelled': None,
+                        'length': None,
+                        'detachFront': None,
+                        'formation': {
+                            'avgLoading': None,
+                            'coaches': {
+                                'coach': [
+                                    {
+                                        'coachClass': 'Standard',
+                                        'toilet': {
+                                            '_value_1': 'Standard',
+                                            'status': 'InService'
+                                        },
+                                        'loading': None,
+                                        'number': '1'
+                                    },
+                                    {
+                                        'coachClass': 'Standard',
+                                        'toilet': {
+                                            '_value_1': 'Accessible',
+                                            'status': 'InService'
+                                        },
+                                        'loading': None,
+                                        'number': '2'
+                                    },
+                                    {
+                                        'coachClass': 'Standard',
+                                        'toilet': None,
+                                        'loading': None,
+                                        'number': '3'
+                                    },
+                                    {
+                                        'coachClass': 'Standard',
+                                        'toilet': {
+                                            '_value_1': 'Accessible',
+                                            'status': 'InService'
+                                        },
+                                        'loading': None,
+                                        'number': '4'
+                                    },
+                                    {
+                                        'coachClass': 'Standard',
+                                        'toilet': {
+                                            '_value_1': 'Standard',
+                                            'status': 'InService'
+                                        },
+                                        'loading': None,
+                                        'number': '5'
+                                    },
+                                    {
+                                        'coachClass': 'First',
+                                        'toilet': {
+                                            '_value_1': 'Standard',
+                                            'status': 'InService'
+                                        },
+                                        'loading': None,
+                                        'number': '6'
+                                    },
+                                    {
+                                        'coachClass': 'First',
+                                        'toilet': {
+                                            '_value_1': 'Standard',
+                                            'status': 'InService'
+                                        },
+                                        'loading': None,
+                                        'number': '7'
+                                    },
+                                    {
+                                        'coachClass': 'First',
+                                        'toilet': {
+                                            '_value_1': 'Accessible',
+                                            'status': 'InService'
+                                        },
+                                        'loading': None,
+                                        'number': '8'
+                                    },
+                                    {
+                                        'coachClass': 'First',
+                                        'toilet': None,
+                                        'loading': None,
+                                        'number': '9'
+                                    }
+                                ]
+                            }
+                        },
+                        'adhocAlerts': None
+                    },
+                    {
+                        'locationName': 'Manchester Piccadilly',
+                        'crs': 'MAN',
+                        'st': '19:05',
+                        'et': 'On time',
+                        'at': None,
+                        'isCancelled': None,
+                        'length': None,
+                        'detachFront': None,
+                        'formation': {
+                            'avgLoading': None,
+                            'coaches': {
+                                'coach': [
+                                    {
+                                        'coachClass': 'Standard',
+                                        'toilet': {
+                                            '_value_1': 'Standard',
+                                            'status': 'InService'
+                                        },
+                                        'loading': None,
+                                        'number': '1'
+                                    },
+                                    {
+                                        'coachClass': 'Standard',
+                                        'toilet': {
+                                            '_value_1': 'Accessible',
+                                            'status': 'InService'
+                                        },
+                                        'loading': None,
+                                        'number': '2'
+                                    },
+                                    {
+                                        'coachClass': 'Standard',
+                                        'toilet': None,
+                                        'loading': None,
+                                        'number': '3'
+                                    },
+                                    {
+                                        'coachClass': 'Standard',
+                                        'toilet': {
+                                            '_value_1': 'Accessible',
+                                            'status': 'InService'
+                                        },
+                                        'loading': None,
+                                        'number': '4'
+                                    },
+                                    {
+                                        'coachClass': 'Standard',
+                                        'toilet': {
+                                            '_value_1': 'Standard',
+                                            'status': 'InService'
+                                        },
+                                        'loading': None,
+                                        'number': '5'
+                                    },
+                                    {
+                                        'coachClass': 'First',
+                                        'toilet': {
+                                            '_value_1': 'Standard',
+                                            'status': 'InService'
+                                        },
+                                        'loading': None,
+                                        'number': '6'
+                                    },
+                                    {
+                                        'coachClass': 'First',
+                                        'toilet': {
+                                            '_value_1': 'Standard',
+                                            'status': 'InService'
+                                        },
+                                        'loading': None,
+                                        'number': '7'
+                                    },
+                                    {
+                                        'coachClass': 'First',
+                                        'toilet': {
+                                            '_value_1': 'Accessible',
+                                            'status': 'InService'
+                                        },
+                                        'loading': None,
+                                        'number': '8'
+                                    },
+                                    {
+                                        'coachClass': 'First',
+                                        'toilet': None,
+                                        'loading': None,
+                                        'number': '9'
+                                    }
+                                ]
+                            }
+                        },
+                        'adhocAlerts': None
+                    }
+                ],
+                'serviceType': 'train',
+                'serviceChangeRequired': 'false',
+                'assocIsCancelled': 'false'
+            }
+        ]
+    }
+}

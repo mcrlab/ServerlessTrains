@@ -1,12 +1,13 @@
 
 class Train():
-    def __init__(self,id, origin, destination, platform, cancelled = False, delayed = False):
+    def __init__(self,id, origin, destination, platform, delayed = False, cancelled = False):
         self.id = id
         self.origin = origin
         self.destination = destination
         self.platform = platform
-        self._cancelled = cancelled
         self._delayed = delayed
+        self._cancelled = cancelled
+
 
     def __str__(self):
         return self.id

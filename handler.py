@@ -78,10 +78,7 @@ def spread(event, context):
         now = datetime.now()
 
         current_time = now.strftime("%H:%M")
-
-
         number_of_departures = int(data['limit'])
-
 
         if not isinstance(routes, list):
             raise Exception("Routes not provided")
