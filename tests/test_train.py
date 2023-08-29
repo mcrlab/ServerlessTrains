@@ -15,8 +15,8 @@ class TestTrain(unittest.TestCase):
         platform = 1
 
         self.train = Train("ID", origin, destination, platform, False, False)
-        self.cancelled_train = Train("ID", origin, destination, platform, True, False)
-        self.delayed_train = Train("ID", origin, destination, platform, False, True)
+        self.cancelled_train = Train("ID", origin, destination, platform, False, True)
+        self.delayed_train = Train("ID", origin, destination, platform, True, False)
        
     def tearDown(self):
         pass
